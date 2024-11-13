@@ -4,6 +4,7 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [UserDetailsComponent]
+    declarations: [UserDetailsComponent],
+    exports:[UserDetailsComponent]
 })
 export class FeaturesModule {}
