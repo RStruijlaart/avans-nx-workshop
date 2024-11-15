@@ -1,1 +1,94 @@
-<p>about works!</p>
+<div class="container">
+    <h1>About</h1>
+
+    <h4>Ontwikkelaar</h4>
+    <p>Ruben Struijlaart - 2214775</p>
+
+    <h4>Casus</h4>
+    <p>De website zal gaan om artiesten die optredens geven waarvoor gebruikers tickets kunnen kopen (aanmaken). De artiesten en optredens kunnen aangemaakt worden door beheerders (dit zijn gebruikers met een beheerder rol).
+        <br><br>Gebruikers kunnen zichzelf registreren en inloggen, verder kunnen ze verschillende artiesten bekijken die optredens hebben waarvoor ze tickets kunnen kopen (aanmaken) voor de optredens. Nadat ze deze tickets hebben aangemaakt kunnen ze deze bekijken in hun eigen overzicht waar ze deze ook weer kunnen verwijderen.
+        <br><br>Een beheerder kan alles wat een gebruiker kan maar heeft de extra functionaliteit om artiesten en optredens aan te maken, updaten en verwijderen. Het verwijderen van een artiest betekent dat alle optredens van deze artiest worden verwijdert. Bij het verwijderen van een optreden worden alle tickets die hieraan gekoppeld zijn verwijdert. Beheerders zullen in de database geseed worden omdat deze niet kunnen registreren via de website.
+    </p>
+
+    <h4>Functional Requirements</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Functional Requirement</th>
+                <th>Acceptatiecriteria</th>
+                <th>Prioriteit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>F-01</td>
+                <td>Als gebruiker ik mij kunnen registreren en inloggen</td>
+                <td>
+                    <ul>
+                        <li>Er is een mogelijkheid om te registreren en inloggen op de website</li>
+                    </ul>
+                </td>
+                <td>Must</td>
+            </tr>
+            <tr>
+                <td>F-02</td>
+                <td>Als gebruiker wil ik artiesten kunnen bekijken zodanig dat ik kan kijken welke optredens deze artiesten geven.</td>
+                <td>
+                    <ul>
+                        <li>Er is een pagina waarop alle beschikbare artiesten te zien zijn</li>
+                        <li>Elke artiest heeft zijn eigen pagina om te kunnen zien welke optredens deze artiest heeft</li>
+                        <li>Elk optreden heeft zijn eigen pagina om informatie lezen over het optreden</li>
+                    </ul>
+                </td>
+                <td>Must</td>
+            </tr>
+            <tr>
+                <td>F-03</td>
+                <td>Als gebruiker wil ik tickets kunnen kopen (aanmaken) voor een optreden zodanig dat ik de optredens kan bijwonen.</td>
+                <td>
+                    <ul>
+                        <li>Op de pagina van een optreden is de mogelijkheid om tickets te kopen (aanmaken)</li>
+                    </ul>
+                </td>
+                <td>Must</td>
+            </tr>
+            <tr>
+                <td>F-04</td>
+                <td>Als gebruiker wil ik kunnen zien welke tickets ik allemaal heb gekocht (aangemaakt) zodanig dat ik deze kan verwijderen als ik niet meer wil gaan</td>
+                <td>
+                    <ul>
+                        <li>Er is een pagina aanwezig om alle tickets van een gebruiker te kunnen zien</li>
+                        <li>De tickets kunnen verwijdert worden door de gebruiker</li>
+                    </ul>
+                </td>
+                <td>Must</td>
+            </tr>
+            <tr>
+                <td>F-05</td>
+                <td>Als beheerder wil ik artiesten kunnen beheren zodanig dat de gegevens op de website up-to-date kunnen blijven</td>
+                <td>
+                    <ul>
+                        <li>Er is een mogelijkheid om artiesten aan te maken, aan te passen en verwijderen</li>
+                        <li>Als een artiest word verwijdert worden alle gerelateerde optredens mee verwijdert</li>
+                    </ul>
+                </td>
+                <td>Must</td>
+            </tr>
+            <tr>
+                <td>F-06</td>
+                <td>Als beheerder wil ik optredens kunnen beheren zodanig dat de gegevens op de website up-to-date kunnen blijven</td>
+                <td>
+                    <ul>
+                        <li>Er is een mogelijkheid om optredens aan te maken, aan te passen en verwijderen</li>
+                        <li>Als een optreden word verwijdert worden alle gerelateerde tickets mee verwijdert</li>
+                    </ul>
+                </td>
+                <td>Must</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>ERD</h4>
+    <img class="img-fluid" src="../../../assets/images/ERD.drawio.png" alt="ERD">
+</div>
