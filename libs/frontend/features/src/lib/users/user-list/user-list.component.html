@@ -1,28 +1,30 @@
-@if(!users){
-    <p>Loading data...</p>
-}@else if(users $$ users.length === 0){
-    <p>No data</p>
-}@else{
-
-}
-
 <div class="container">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Is Active</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let user of users">
-            <tr>
-                <td>{{user._id}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.emailAddress}}</td>
-                <td>{{user.isActive}}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    @if(!users){
+        <p>Loading data...</p>
+    }@else if(users && users.length === 0){
+        <p>No data</p>
+    }@else{
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Naam</th>
+                    <th>Email</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of users; track user._id) {
+                    <tr>
+                        <td>{{user._id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.emailAddress}}</td>
+                        <td>{{user.isActive}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
 </div>
