@@ -10,8 +10,8 @@ export class UserService {
     readonly users: IUserInfo[] = [
         {
             _id: 1,
-            name: 'Coen de Kruijf',
-            emailAddress: 'kruijf.coen@gmail.com',
+            name: 'Ruben Struijlaart',
+            emailAddress: 'ruben.struijlaart@gmail.com',
             profileImgUrl: 'url',
             role: UserRole.Guest,
             gender: UserGender.Male,
@@ -59,5 +59,12 @@ export class UserService {
   getUserById(id: number): IUserInfo {
     console.log('getUserById aangeroepen');
     return this.users.filter((user) => user._id === id)[0];
+  }
+
+  getUserByIdAsObservable(id: number): Observable<IUserInfo> {
+    console.log('getUserByIdAsObservable aangeroepen');
+    // 'of' is een rxjs operator die een Observable
+    // maakt van de gegeven data.
+    return of(this.users.filter((user) => user._id === id)[0]);
   }
 }
