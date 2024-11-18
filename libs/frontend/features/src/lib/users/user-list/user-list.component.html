@@ -1,20 +1,30 @@
 <div class="container">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Is Active</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let user of users">
-            <tr>
-                <td>{{user._id}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.emailAddress}}</td>
-                <td>{{user.isActive}}</td>
-            </tr>
-        </tbody>
-    </table>
+
+    @if(!users){
+        <h2 class="text-center">Loading data...</h2>
+    }@else if(users && users.length === 0){
+        <h2 class="text-center">No users found!</h2>
+    }@else{
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of users; track user._id) {
+                    <tr>
+                        <td>{{user._id}}</td>
+                        <td><a routerLink="{{user._id}}">{{user.name}}</a></td>
+                        <td>{{user.emailAddress}}</td>
+                        <td>{{user.isActive}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
 </div>
