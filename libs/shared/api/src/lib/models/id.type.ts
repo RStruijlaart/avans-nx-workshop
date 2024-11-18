@@ -1,2 +1,2 @@
-export type Id = string;
+export type Id = number;
 export type IResourceId = { _id: Id };
