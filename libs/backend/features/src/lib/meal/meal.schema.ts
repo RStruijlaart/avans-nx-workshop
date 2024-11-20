@@ -9,7 +9,7 @@ export type MealDocument = Meal & Document;
 @Schema()
 export class Meal implements IMeal {
     @IsMongoId()
-    id!: number;
+    id!: string;
 
     @Prop({ required: true })
     title!: string;

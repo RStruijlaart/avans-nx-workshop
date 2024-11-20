@@ -1,70 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { map, Observable, of } from 'rxjs';
+import { ApiResponse, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@avans-nx-workshop/shared/util-env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
-    readonly users: IUserInfo[] = [
-        {
-            _id: 1,
-            name: 'Ruben Struijlaart',
-            emailAddress: 'ruben.struijlaart@gmail.com',
-            profileImgUrl: 'url',
-            role: UserRole.Guest,
-            gender: UserGender.Male,
-            isActive: true,
-            password: 'password'
-        },
-        {
-            _id: 2,
-            name: 'Thom hendricks',
-            emailAddress: 'T.hendricks@gmail.com',
-            profileImgUrl: 'url',
-            role: UserRole.Admin,
-            gender: UserGender.Male,
-            isActive: true,
-            password: 'password'
-        },
-        {
-            _id: 3,
-            name: 'Drik Stabel',
-            emailAddress: 'D.Stabel@gmail.com',
-            profileImgUrl: 'url',
-            role: UserRole.Admin,
-            gender: UserGender.Male,
-            isActive: true,
-            password: 'password'
-        }
-    ];
+  readonly users: IUserInfo[] = [];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     console.log('Service constructor aangeroepen');
   }
 
-  getUsers(): IUserInfo[] {
-    console.log('getUsers aangeroepen');
-    return this.users;
-  }
-
-  getUsersAsObservable(): Observable<IUserInfo[]> {
+  getUsersAsObservable(): Observable<IUserInfo[]>{
     console.log('getUsersAsObservable aangeroepen');
     // 'of' is een rxjs operator die een Observable
     // maakt van de gegeven data.
-    return of(this.users);
+
+    return this.http
+      .get<ApiResponse<any>>(environment.dataApiUrl + '/user')
+      .pipe(
+        map((response) => response.results)
+      );
   }
 
-  getUserById(id: number): IUserInfo {
+  getUserById(id: string): IUserInfo {
     console.log('getUserById aangeroepen');
     return this.users.filter((user) => user._id === id)[0];
   }
 
-  getUserByIdAsObservable(id: number): Observable<IUserInfo> {
+  getUserByIdAsObservable(id: string): Observable<IUserInfo> {
     console.log('getUserByIdAsObservable aangeroepen');
     // 'of' is een rxjs operator die een Observable
     // maakt van de gegeven data.
-    return of(this.users.filter((user) => user._id === id)[0]);
+    return this.http
+      .get<ApiResponse<any>>(environment.dataApiUrl + '/user/' + id)
+        .pipe(
+          map((response) => response.results)
+        );
   }
 }
