@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import { ApiResponse, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { ApiResponse, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 
@@ -41,5 +41,23 @@ export class UserService {
         .pipe(
           map((response) => response.results)
         );
+  }
+
+  deleteUser(id: string): void {
+    this.http.delete(environment.dataApiUrl + '/user/' + id);
+  }
+
+  updateUser(user: IUserInfo): void {
+    var body = 
+    {
+      emailAddress: user.emailAddress,
+      gender: user.gender,
+      role: user.role,
+      title: user.isActive,
+      name: user.name,
+      profileImgUrl: user.profileImgUrl
+    }
+    
+    this.http.put(environment.dataApiUrl + '/user/' + user._id, body);
   }
 }
