@@ -1,0 +1,30 @@
+<div class="container">
+
+    @if(!artists){
+        <h2 class="text-center">Loading data...</h2>
+    }@else if(artists && artists.length === 0){
+        <h2 class="text-center">No artists found!</h2>
+    }@else{
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (artist of artists; track artist._id) {
+                    <tr>
+                        <td>{{artist._id}}</td>
+                        <td><a routerLink="{{artist._id}}">{{artist.name}}</a></td>
+                        <td>{{artist.description}}</td>
+                        <td>{{artist.genre}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

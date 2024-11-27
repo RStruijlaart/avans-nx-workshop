@@ -6,5 +6,5 @@ export const environment: IEnvironment = {
     ROOT_DOMAIN_URL: 'https://nx-avans-workshop-api-dfghb6dmcqbdamby.westeurope-01.azurewebsites.net',
     dataApiUrl: 'https://nx-avans-workshop-api-dfghb6dmcqbdamby.westeurope-01.azurewebsites.net/api',
 
-    MONGO_DB_CONNECTION_STRING: 'mongodb+srv://rubenstruijlaart:HILeHuUSIs3etCs5@musicmate.nkxlq.mongodb.net/?retryWrites=true&w=majority&appName=MusicMate'
+    MONGO_DB_CONNECTION_STRING: 'mongodb+srv://rubenstruijlaart:HILeHuUSIs3etCs5@musicmate.nkxlq.mongodb.net/musicmate?retryWrites=true&w=majority&appName=MusicMate'
 };
