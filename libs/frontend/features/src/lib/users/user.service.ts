@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, tap, of } from 'rxjs';
 import { ApiResponse, ICreateUser, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
@@ -43,15 +43,10 @@ export class UserService {
         );
   }
 
-  createUser(user: IUpdateUser): Observable<IUserInfo>{
-    var body = 
-    {
-      emailAddress: user.emailAddress,
-      name: user.name,
-      password: user.password
-    }
+  createUser(user: IUserInfo): Observable<IUserInfo>{
+
     return this.http
-      .post<ApiResponse<any>>(environment.dataApiUrl + '/user', body)
+      .post<ApiResponse<any>>(environment.dataApiUrl + '/user', user)
         .pipe(
           map((response) => response.results)
         );
@@ -61,20 +56,12 @@ export class UserService {
     this.http.delete(environment.dataApiUrl + '/user/' + id);
   }
 
-  updateUser(user: IUserInfo): Observable<IUserInfo> {
-    var body = 
-    {
-      emailAddress: user.emailAddress,
-      gender: user.gender,
-      role: user.role,
-      title: user.isActive,
-      name: user.name,
-      profileImgUrl: user.profileImgUrl
-    }
-    
+  updateUser(user: IUpdateUser): Observable<IUserInfo> {
+
     return this.http
-      .put<ApiResponse<any>>(environment.dataApiUrl + '/user/' + user._id, body)
+      .put<ApiResponse<any>>(environment.dataApiUrl + '/user/' + user._id, user)
         .pipe(
+          tap(console.log),
           map((response) => response.results)
         );
       }

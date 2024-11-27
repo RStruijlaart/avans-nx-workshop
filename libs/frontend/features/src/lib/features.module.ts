@@ -5,14 +5,13 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { RouterModule} from '@angular/router';
 import { UserService } from './users/user.service';
 import { provideHttpClient } from '@angular/common/http';
-import { UserLoginComponent } from './users/user-login/user-login.component';
 import { ArtistListAdminComponent } from './artists/artist-list-admin/artist-list-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
-    declarations: [UserDetailsComponent, UserListComponent, UserLoginComponent, ArtistListAdminComponent, UserEditComponent],
+    declarations: [UserDetailsComponent, UserListComponent, ArtistListAdminComponent, UserEditComponent],
     providers: [UserService, provideHttpClient()]
 })
 export class FeaturesModule {}
