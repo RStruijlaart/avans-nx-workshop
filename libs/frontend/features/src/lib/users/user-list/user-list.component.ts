@@ -24,12 +24,4 @@ export class UserListComponent implements OnInit, OnDestroy {
             this.sub.unsubscribe();
         }
     }
-
-    deleteUser(id: string): void{
-        console.log("delete");
-        this.sub?.add(this.userService.deleteUser(id).subscribe((result) => {
-            console.log(result);
-            this.router.navigate([this.route], { relativeTo: this.route });
-        }));
-    }
 }

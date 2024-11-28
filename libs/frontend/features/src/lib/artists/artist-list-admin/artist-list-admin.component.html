@@ -1,5 +1,9 @@
 <div class="container">
 
+    @if(artists){
+        <div class="text-center"><button class="btn btn-primary mb-3" routerLink="new">Add Artist</button></div>
+    }
+
     @if(!artists){
         <h2 class="text-center">Loading data...</h2>
     }@else if(artists && artists.length === 0){

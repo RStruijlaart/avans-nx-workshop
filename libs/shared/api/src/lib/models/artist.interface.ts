@@ -32,3 +32,12 @@ export interface IArtist extends IEntity {
     description: string;
     genre: Genre;
 }
+
+export interface IArtistInfo {
+    _id: Id; 
+    name: string;
+    description: string;
+    genre: Genre;
+}
+
+export type IUpdateArtist = Partial<Omit<IArtistInfo, 'id'>>;

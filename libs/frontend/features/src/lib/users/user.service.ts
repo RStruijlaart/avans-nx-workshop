@@ -44,6 +44,7 @@ export class UserService {
   }
 
   createUser(user: IUserInfo): Observable<IUserInfo>{
+    console.log('createUser aangeroepen');
 
     return this.http
       .post<ApiResponse<any>>(environment.dataApiUrl + '/user', user)
@@ -53,17 +54,17 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<IUserInfo> {
-    console.log(id)
+    console.log('deleteUser aangeroepen');
+
     return this.http
       .delete<ApiResponse<any>>(environment.dataApiUrl + '/user/' + id)
           .pipe(
-            tap(console.log),
             map((response) => response.results),
-            tap(console.log)
       );
   }
 
   updateUser(user: IUpdateUser): Observable<IUserInfo> {
+    console.log('updateUser aangeroepen');
 
     return this.http
       .put<ApiResponse<any>>(environment.dataApiUrl + '/user/' + user._id, user)

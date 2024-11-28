@@ -1,0 +1,109 @@
+<div class="container">
+
+    <form
+    *ngIf="artist"
+    #artistEditForm="ngForm"
+    (ngSubmit)="artistEditForm.form.valid && onSubmit(artist)"
+    novalidate
+    >
+
+    <div class="main-body">
+    
+          <div class="row gutters-sm justify-content-md-center">
+
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                    @if(artistId){
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Id</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{artistId}}
+                            </div>
+                        </div>
+                        <hr>
+                    }
+                  <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0"><label for="artistName">Name</label></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="artistName"
+                                name="artistName"
+                                #userTitle="ngModel"
+                                [(ngModel)]="artist.name"
+                                required
+                            />
+                        </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0"><label for="artistDescription">Description</label></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <div class="form-group">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                id="artistDescription"
+                                name="artistDescription"
+                                #userTitle="ngModel"
+                                [(ngModel)]="artist.description"
+                                required
+                            ></textarea>
+                        </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0"><label for="artistGenre">Genre</label></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <div class="form-group">
+                            <select
+                                type="text"
+                                class="form-control"
+                                id="artistGenre"
+                                name="artistGenre"
+                                #userTitle="ngModel"
+                                [(ngModel)]="artist.genre"
+                                required
+                            >
+                            <option *ngFor="let genre of artistGenreList" [value]="genre.value">
+                                {{genre.key}}
+                            </option>
+                            </select>
+                        </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                        <button
+                        type="submit"
+                        [disabled]="!artistEditForm.valid"
+                        class="btn btn-success"
+                        e
+                        >
+                            Submit
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+    </form>
+</div>
