@@ -1,0 +1,64 @@
+<div class="container">
+
+    @if(!artist){
+        <h2 class="text-center">Artist with id {{artistId}} does not exist!</h2>
+    }@else{
+
+    <div class="main-body">
+    
+          <div class="row gutters-sm justify-content-md-center">
+
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Id</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{artist._id}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{artist.name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Description</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{artist.description}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Genre</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{artist.genre}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button routerLink="../edit/{{artist._id}}" class="btn btn-info">Edit</button>
+                      <button class="btn btn-danger mx-2" (click)="deleteArtist(artist._id)">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+    }
+    </div>

@@ -61,7 +61,7 @@ export class UpsertUserDto implements IUpsertUser {
 }
 
 export class UpdateUserDto implements IUpdateUser {
-    _id?: number | undefined;
+    _id?: string | undefined;
 
     @IsString()
     @IsOptional()

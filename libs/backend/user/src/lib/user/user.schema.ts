@@ -15,7 +15,7 @@ export type UserDocument = User & Document;
 @Schema()
 export class User implements IUser {
     @IsMongoId()
-    _id!: number;
+    _id!: string;
 
     @Prop({
         required: true,

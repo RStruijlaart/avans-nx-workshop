@@ -1,0 +1,185 @@
+<div class="container">
+        <form
+            *ngIf="user"
+            #userEditForm="ngForm"
+            (ngSubmit)="userEditForm.form.valid && onSubmit(user)"
+            novalidate
+        >
+
+            <div class="main-body">
+                <div class="row gutters-sm">
+
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                    <div class="mt-3">
+                                        <div class="form-group">
+                                            <h6 class="mb-0"><label for="userName">Name</label></h6>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userName"
+                                                name="userName"
+                                                #userTitle="ngModel"
+                                                [(ngModel)]="user.name"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                @if(userId){
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Id</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{userId}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                }
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0"><label for="userEmail">Email</label></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <div class="form-group">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userEmail"
+                                                name="userEmail"
+                                                #userTitle="ngModel"
+                                                [(ngModel)]="user.emailAddress"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                @if(!userId){
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0"><label for="userPassword">Password</label></h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <div class="form-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="userPassword"
+                                                    name="userPassword"
+                                                    #userTitle="ngModel"
+                                                    [(ngModel)]="user.password"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                }
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0"><label for="userGender">Gender</label></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <div class="form-group">
+                                            <select
+                                                type="text"
+                                                class="form-control"
+                                                id="userGender"
+                                                name="userGender"
+                                                #userTitle="ngModel"
+                                                [(ngModel)]="user.gender"
+                                                required
+                                            >
+                                            <option *ngFor="let gender of userGenderList" [value]="gender.value">
+                                                {{gender.key}}
+                                            </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0"><label for="userRole">Role</label></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <div class="form-group">
+                                            <select
+                                                type="text"
+                                                class="form-control"
+                                                id="userRole"
+                                                name="userRole"
+                                                #userTitle="ngModel"
+                                                [(ngModel)]="user.role"
+                                                required
+                                            >
+                                            <option *ngFor="let role of userRoleList" [value]="role.value">
+                                                {{role.key}}
+                                            </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0"><label for="userActive">Active</label></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <div class="form-group">
+                                            <select
+                                                type="text"
+                                                class="form-control"
+                                                id="userActive"
+                                                name="userActive"
+                                                #userTitle="ngModel"
+                                                [(ngModel)]="user.isActive"
+                                                required
+                                            >
+                                            <option [value]="true">
+                                                True
+                                            </option>
+                                            <option [value]="false">
+                                                False
+                                            </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button
+                                            type="submit"
+                                            [disabled]="!userEditForm.valid"
+                                            class="btn btn-success"
+                                            e
+                                        >
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </form>
+
+
+    </div>
