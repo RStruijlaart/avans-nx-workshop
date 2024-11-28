@@ -30,7 +30,6 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     }
 
     deleteUser(id: string): void{
-        console.log("delete");
         this.sub?.add(this.userService.deleteUser(id).subscribe((result) => {
             console.log(result);
             this.router.navigate([".."], { relativeTo: this.route });
