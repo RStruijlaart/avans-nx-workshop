@@ -52,8 +52,15 @@ export class UserService {
         );
   }
 
-  deleteUser(id: string): void {
-    this.http.delete(environment.dataApiUrl + '/user/' + id);
+  deleteUser(id: string): Observable<IUserInfo> {
+    console.log(id)
+    return this.http
+      .delete<ApiResponse<any>>(environment.dataApiUrl + '/user/' + id)
+          .pipe(
+            tap(console.log),
+            map((response) => response.results),
+            tap(console.log)
+      );
   }
 
   updateUser(user: IUpdateUser): Observable<IUserInfo> {
@@ -64,5 +71,5 @@ export class UserService {
           tap(console.log),
           map((response) => response.results)
         );
-      }
+  }
 }
