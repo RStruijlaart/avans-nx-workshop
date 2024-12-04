@@ -53,7 +53,7 @@ export class UpsertUserDto implements IUpsertUser {
 
     @IsString()
     @IsNotEmpty()
-    role: UserRole = UserRole.Unknown;
+    role: UserRole = UserRole.Guest;
 
     @IsString()
     @IsNotEmpty()

@@ -45,7 +45,7 @@ export class User implements IUser {
     @Prop({
         required: false,
         select: true,
-        default: 'https://cdn-icons-png.flaticon.com/512/219/219969.png'
+        default: 'https://t3.ftcdn.net/jpg/00/57/04/58/360_F_57045887_HHJml6DJVxNBMqMeDqVJ0ZQDnotp5rGD.jpg'
     })
     profileImgUrl!: string;
 

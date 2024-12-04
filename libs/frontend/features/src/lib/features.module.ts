@@ -10,10 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { ArtistDetailsComponent } from './artists/artist-details-admin/artist-details-admin.component';
 import { ArtistEditComponent } from './artists/artist-edit/artist-edit.component';
+import { AuthService } from './auth/auth.service';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AlertModule } from '@avans-nx-workshop/shared/alert';
+import { LoggedInAsAdminAuthGuard, LoggedInAuthGuard, UserEditOwnDataAuthGuard } from './auth/auth.guards';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
-    declarations: [UserDetailsComponent, UserListComponent, ArtistListAdminComponent, UserEditComponent, ArtistDetailsComponent, ArtistEditComponent],
-    providers: [UserService, provideHttpClient()]
+    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AlertModule],
+    declarations: [UserDetailsComponent, UserListComponent, ArtistListAdminComponent, UserEditComponent, ArtistDetailsComponent, ArtistEditComponent, LoginComponent, RegisterComponent],
+    providers: [UserService, provideHttpClient(), AuthService, LoggedInAuthGuard, LoggedInAsAdminAuthGuard, UserEditOwnDataAuthGuard],
 })
 export class FeaturesModule {}

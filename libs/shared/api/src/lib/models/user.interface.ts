@@ -5,8 +5,7 @@ import { Id } from './id.type';
 
 export enum UserRole {
     Guest = 'Guest',
-    Admin = 'Admin',
-    Unknown = 'Unknown'
+    Admin = 'Admin'
 }
 
 export enum UserGender {
@@ -19,12 +18,11 @@ export enum UserGender {
  * Minimal user information
  */
 
-export interface IUserIdentity extends IEntity {
+export interface IUserIdentity extends IEntity, IToken {
     name: string;
     emailAddress: string;
     profileImgUrl: string;
     role: UserRole;
-    token?: string;
 }
 
 /**
