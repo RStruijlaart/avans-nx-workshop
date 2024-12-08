@@ -30,8 +30,16 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
     }
 
     deleteArtist(id: string): void{
-        this.sub?.add(this.artistService.deleteArtist(id).subscribe(() => {
-            this.router.navigate(['..'], { relativeTo: this.route });
+        this.sub?.add(this.artistService.deleteArtist(id).subscribe({
+            next: (user: IArtist | undefined) => {
+                if (user) {
+                    console.log('Deleted artist:', user);
+                    this.router.navigate(['..'], { relativeTo: this.route });
+                }
+            },
+            error: (err) => {
+                console.error('Error during deletion:', err);
+            }
         }));
     }
 }

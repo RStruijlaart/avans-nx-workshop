@@ -1,4 +1,4 @@
-import { IEntity } from 'libs/share-a-meal/common/src/lib/entity/entity.model';
+import { IEntity } from './entity.model';
 import { IMeal } from './meal.interface';
 import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';

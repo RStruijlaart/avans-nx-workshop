@@ -32,6 +32,7 @@
             "@avans-nx-workshop/backend/user": [
                 "libs/backend/user/src/index.ts"
             ],
+            "@avans-nx-workshop/backend/concert": ["libs/backend/concert/src/index.ts"],
             "@avans-nx-workshop/features": [
                 "libs/frontend/features/src/index.ts"
             ],

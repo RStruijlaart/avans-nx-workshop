@@ -1,4 +1,4 @@
-import { IEntity } from 'libs/share-a-meal/common/src/lib/entity/entity.model';
+import { IEntity } from './entity.model';
 import { Id } from './id.type';
 
 export enum Genre {

@@ -15,10 +15,25 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AlertModule } from '@avans-nx-workshop/shared/alert';
 import { LoggedInAsAdminAuthGuard, LoggedInAuthGuard, UserEditOwnDataAuthGuard } from './auth/auth.guards';
+import { ConcertListAdminComponent } from './concert/concert-list-admin/concert-list-admin.component';
+import { ConcertEditComponent } from './concert/concert-edit/concert-edit.component';
+import { ConcertDetailsComponent } from './concert/concert-details-admin/concert-details-admin.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AlertModule],
-    declarations: [UserDetailsComponent, UserListComponent, ArtistListAdminComponent, UserEditComponent, ArtistDetailsComponent, ArtistEditComponent, LoginComponent, RegisterComponent],
+    declarations: [
+        UserDetailsComponent, 
+        UserListComponent,
+        ArtistListAdminComponent,
+        UserEditComponent, 
+        ArtistDetailsComponent, 
+        ArtistEditComponent, 
+        LoginComponent, 
+        RegisterComponent, 
+        ConcertListAdminComponent, 
+        ConcertEditComponent,
+        ConcertDetailsComponent
+    ],
     providers: [UserService, provideHttpClient(), AuthService, LoggedInAuthGuard, LoggedInAsAdminAuthGuard, UserEditOwnDataAuthGuard],
 })
 export class FeaturesModule {}

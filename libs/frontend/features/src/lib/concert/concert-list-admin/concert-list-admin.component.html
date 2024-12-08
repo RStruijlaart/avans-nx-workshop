@@ -1,0 +1,34 @@
+<div class="container">
+
+    @if(concerts){
+        <div class="text-center"><button class="btn btn-primary mb-3" routerLink="new">Add Concert</button></div>
+    }
+
+    @if(!concerts){
+        <h2 class="text-center">Loading data...</h2>
+    }@else if(concerts && concerts.length === 0){
+        <h2 class="text-center">No concerts found!</h2>
+    }@else{
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>SeatCount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (concert of concerts; track concert._id) {
+                    <tr>
+                        <td>{{concert._id}}</td>
+                        <td><a routerLink="{{concert._id}}">{{concert.name}}</a></td>
+                        <td>{{concert.location}}</td>
+                        <td>{{concert.seatCount}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

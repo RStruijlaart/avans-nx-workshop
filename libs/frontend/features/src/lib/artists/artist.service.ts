@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { ApiResponse, IArtist, Genre, IArtistInfo, IUpdateArtist } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
+import { AlertService } from '@avans-nx-workshop/shared/alert';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArtistService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private alertService: AlertService,) {
     console.log('Service constructor aangeroepen');
   }
 
@@ -43,13 +44,33 @@ export class ArtistService {
         );
   }
 
-  deleteArtist(id: string): Observable<IArtist> {
+  deleteArtist(id: string): Observable<IArtist | undefined> {
     console.log('deleteArtist aangeroepen');
+    // return this.http
+    //   .delete<ApiResponse<any>>(environment.dataApiUrl + '/artist/' + id)
+    //       .pipe(
+    //         map((response) => response.results),
+    //   );
+
     return this.http
-      .delete<ApiResponse<any>>(environment.dataApiUrl + '/artist/' + id)
-          .pipe(
-            map((response) => response.results),
-      );
+    .delete<{results:any}>(
+      `${environment.dataApiUrl}/artist/${id}`
+    )
+    .pipe(
+      map((response) => {
+        const results = response.results;
+        if (results?.response?.error) {
+            throw new Error(results.response.message || 'An unexpected error occurred.');
+        }
+        return results;
+      }),
+      catchError((error: any) => {
+        console.log('error:', error);
+        console.log('error.message:', error.message);
+        this.alertService.error(error.message);
+        return of(undefined);
+      })
+    );
   }
 
   updateArtist(artist: IUpdateArtist): Observable<IArtist> {

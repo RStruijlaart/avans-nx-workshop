@@ -12,6 +12,9 @@ import { LoginComponent } from "libs/frontend/features/src/lib/auth/login/login.
 import { RegisterComponent } from "libs/frontend/features/src/lib/auth/register/register.component";
 import { LoggedInAsAdminAuthGuard, LoggedInAuthGuard, UserEditOwnDataAuthGuard } from "libs/frontend/features/src/lib/auth/auth.guards";
 import { AdminPageComponent } from "./components/admin/admin-page/admin-page.component";
+import { ConcertListAdminComponent } from "libs/frontend/features/src/lib/concert/concert-list-admin/concert-list-admin.component";
+import { ConcertEditComponent } from "libs/frontend/features/src/lib/concert/concert-edit/concert-edit.component";
+import { ConcertDetailsComponent } from "libs/frontend/features/src/lib/concert/concert-details-admin/concert-details-admin.component";
 
 
 export const appRoutes: Route[] = [
@@ -26,6 +29,11 @@ export const appRoutes: Route[] = [
     { path: "artists/new", pathMatch: "full", component: ArtistEditComponent , canActivate: [LoggedInAsAdminAuthGuard]},
     { path: "artists/:id", pathMatch: "full", component: ArtistDetailsComponent , canActivate: [LoggedInAsAdminAuthGuard]},
     { path: "artists/edit/:id", pathMatch: "full", component: ArtistEditComponent , canActivate: [LoggedInAsAdminAuthGuard]},
+
+    { path: "concerts", pathMatch: "full", component: ConcertListAdminComponent , canActivate: [LoggedInAsAdminAuthGuard]},
+    { path: "concerts/new", pathMatch: "full", component: ConcertEditComponent , canActivate: [LoggedInAsAdminAuthGuard]},
+    { path: "concerts/:id", pathMatch: "full", component: ConcertDetailsComponent , canActivate: [LoggedInAsAdminAuthGuard]},
+    { path: "concerts/edit/:id", pathMatch: "full", component: ConcertEditComponent , canActivate: [LoggedInAsAdminAuthGuard]},
     
     { path: "users", pathMatch: "full", component: UserListComponent, canActivate: [LoggedInAsAdminAuthGuard]},
     { path: "users/new", pathMatch: "full", component: UserEditComponent, canActivate: [LoggedInAsAdminAuthGuard] },
