@@ -2,6 +2,8 @@ import { IEntity } from './entity.model';
 import { IMeal } from './meal.interface';
 import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
+import { IConcert } from './concert.interface';
+import { ITicket } from './ticket.interface';
 
 export enum UserRole {
     Guest = 'Guest',
@@ -40,6 +42,7 @@ export interface IUserInfo extends IUserRegistration {
  * All user information, incl. domain entities
  */
 export interface IUser extends IUserInfo {
+    tickets: ITicket[];
     meals: IMeal[];
 }
 

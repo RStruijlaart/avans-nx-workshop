@@ -9,6 +9,7 @@ import {
     UserRole
 } from '@avans-nx-workshop/shared/api';
 import { Meal } from '@avans-nx-workshop/backend/features';
+import { Ticket } from 'libs/backend/user/src/lib/user/ticket.schema';
 
 export class CreateUserDto implements IUserRegistration {
     @IsString()
@@ -50,6 +51,10 @@ export class UpsertUserDto implements IUpsertUser {
     @IsString()
     @IsNotEmpty()
     meals: Meal[] = [];
+
+    @IsString()
+    @IsNotEmpty()
+    tickets: Ticket[] = [];
 
     @IsString()
     @IsNotEmpty()

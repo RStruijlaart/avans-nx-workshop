@@ -3,12 +3,15 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 // import { v4 as uuid } from 'uuid';
 import isEmail from 'validator/lib/isEmail';
 import {
+    IConcert,
     IMeal,
+    ITicket,
     IUser,
     UserGender,
     UserRole
 } from '@avans-nx-workshop/shared/api';
 import { IsMongoId } from 'class-validator';
+import { TicketSchema } from './ticket.schema';
 
 export type UserDocument = User & Document;
 
@@ -69,6 +72,12 @@ export class User implements IUser {
         default: true
     })
     isActive = true;
+
+    @Prop({
+        default: [],
+        type: [TicketSchema],
+    })
+    tickets: ITicket[] = [];
 
     @Prop({
         default: [],

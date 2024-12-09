@@ -40,4 +40,4 @@ export interface IArtistInfo {
     genre: Genre;
 }
 
-export type IUpdateArtist = Partial<Omit<IArtistInfo, 'id'>>;
+export type IUpdateArtist = Partial<IArtist>;
