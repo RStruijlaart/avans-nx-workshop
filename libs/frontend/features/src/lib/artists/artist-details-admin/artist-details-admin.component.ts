@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './artist-details-admin.component.html',
     styles: []
 })
-export class ArtistDetailsComponent implements OnInit, OnDestroy {
+export class ArtistDetailsAdminComponent implements OnInit, OnDestroy {
     artistId: string | null = null;
     artist?: IArtist;
     sub?: Subscription;
@@ -30,8 +30,16 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
     }
 
     deleteArtist(id: string): void{
-        this.sub?.add(this.artistService.deleteArtist(id).subscribe(() => {
-            this.router.navigate(['..'], { relativeTo: this.route });
+        this.sub?.add(this.artistService.deleteArtist(id).subscribe({
+            next: (user: IArtist | undefined) => {
+                if (user) {
+                    console.log('Deleted artist:', user);
+                    this.router.navigate(['..'], { relativeTo: this.route });
+                }
+            },
+            error: (err) => {
+                console.error('Error during deletion:', err);
+            }
         }));
     }
 }

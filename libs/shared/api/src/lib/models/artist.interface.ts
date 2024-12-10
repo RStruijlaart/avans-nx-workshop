@@ -1,4 +1,4 @@
-import { IEntity } from 'libs/share-a-meal/common/src/lib/entity/entity.model';
+import { IEntity } from './entity.model';
 import { Id } from './id.type';
 
 export enum Genre {
@@ -31,6 +31,7 @@ export interface IArtist extends IEntity {
     name: string;
     description: string;
     genre: Genre;
+    photoURL: string;
 }
 
 export interface IArtistInfo {
@@ -38,6 +39,7 @@ export interface IArtistInfo {
     name: string;
     description: string;
     genre: Genre;
+    photoURL: string;
 }
 
-export type IUpdateArtist = Partial<Omit<IArtistInfo, 'id'>>;
+export type IUpdateArtist = Partial<IArtist>;

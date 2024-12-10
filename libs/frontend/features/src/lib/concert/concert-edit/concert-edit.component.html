@@ -1,0 +1,153 @@
+<div class="container">
+
+    @if(artistList.length === 0){
+        <h2 class="text-center">Add an artist before adding concerts!</h2>
+    }@else{
+
+        <form
+        *ngIf="concert"
+        #concertEditForm="ngForm"
+        (ngSubmit)="concertEditForm.form.valid && onSubmit(concert)"
+        novalidate
+        >
+
+        <div class="main-body">
+        
+            <div class="row gutters-sm justify-content-md-center">
+
+                <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        @if(concertId){
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Id</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{concertId}}
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><label for="concertName">Name</label></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="concertName"
+                                    name="concertName"
+                                    #userTitle="ngModel"
+                                    [(ngModel)]="concert.name"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><label for="concertLocation">Location</label></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="concertLocation"
+                                    name="concertLocation"
+                                    #userTitle="ngModel"
+                                    [(ngModel)]="concert.location"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><label for="concertDate">Date/Time</label></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <div class="form-group">
+                                <input
+                                    type="datetime-local"
+                                    class="form-control"
+                                    id="concertDate"
+                                    name="concertDate"
+                                    #userTitle="ngModel"
+                                    [(ngModel)]="formattedDate"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><label for="concertSeatCount">Seat Count</label></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <div class="form-group">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="concertSeatCount"
+                                    name="concertSeatCount"
+                                    #userTitle="ngModel"
+                                    [(ngModel)]="concert.seatCount"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><label for="concertArtists">Artists</label></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <div class="form-group">
+                                <select
+                                    type="text"
+                                    class="form-control"
+                                    id="concertArtists"
+                                    name="concertArtists"
+                                    #userTitle="ngModel"
+                                    [(ngModel)]="concert.artists"
+                                    multiple
+                                    required
+                                >
+                                <option *ngFor="let artist of artistList" [value]="artist._id">
+                                    {{artist.name}}
+                                </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button
+                            type="submit"
+                            [disabled]="!concertEditForm.valid"
+                            class="btn btn-success"
+                            e
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            
+            </div>
+        </form>
+    }
+</div>

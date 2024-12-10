@@ -1,0 +1,85 @@
+<div class="container">
+
+    @if(!concert){
+        <h2 class="text-center">Concert with id {{concertId}} does not exist!</h2>
+    }@else{
+
+    <div class="main-body">
+    
+          <div class="row gutters-sm justify-content-md-center">
+
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Id</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{concert._id}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{concert.name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Location</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{concert.location}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Date/Time</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{concert.dateTime.toLocaleString('en-GB', { timeZone: 'Europe/Amsterdam' })}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Seat Count</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{concert.seatCount}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Artists</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      @for (artist of concert.artists; track artist._id; let last = $last) {
+                        <a routerLink="../../artists-admin/{{artist._id}}">{{artist.name}}</a>@if(!last){, }
+                        
+                      }
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button routerLink="../edit/{{concert._id}}" class="btn btn-info">Edit</button>
+                      <button class="btn btn-danger mx-2" (click)="deleteConcert(concert._id)">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+    }
+    </div>

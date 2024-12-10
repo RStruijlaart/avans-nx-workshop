@@ -1,0 +1,31 @@
+<div class="container">
+    @if(artist){
+        <div class="artist-header">
+            <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
+            <h1>{{artist.name}}</h1>
+            <p class="lead">{{artist.genre}} | {{artist.description}}</p>
+        </div>
+    
+        @if(concerts.length == 0){
+            <h2 class="text-center mb-4">{{artist.name}} has no concerts yet!</h2>
+        }@else{
+            <h2 class="text-center mb-4">Upcoming Concerts</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @for (concert of concerts; track concert._id) {
+                    <div class="col">
+                        <div class="card concert-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{concert.name}}</h5>
+                                <p class="card-text"><strong>Date:</strong> {{concert.dateTime.toLocaleString('en-GB', { timeZone: 'Europe/Amsterdam' })}}</p>
+                                <p class="card-text"><strong>Location:</strong> {{concert.location}}</p>
+                                <a routerLink="../../concerts/{{concert._id}}" class="btn btn-outline-primary btn-sm">View Concert Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }@else{
+        <h2 class="text-center">Artist with {{artistId}} not found!</h2>
+    }
+</div>

@@ -5,7 +5,8 @@
     "scripts": {
         "deploy": "nx run share-a-meal-web:build",
         "build": "nx run-many -t build",
-        "test": "nx run-many -t test"
+        "test": "nx run-many -t test",
+        "start": "nx run-many -t=serve -p data-api my-app"
     },
     "private": true,
     "dependencies": {
@@ -24,6 +25,7 @@
         "@nestjs/mongoose": "^10.0.2",
         "@nestjs/passport": "^10.0.2",
         "@nestjs/platform-express": "^10.0.2",
+        "@ng-bootstrap/ng-bootstrap": "^17.0.1",
         "@nx/angular": "20.1.2",
         "@popperjs/core": "^2.11.8",
         "@types/uuid": "^9.0.7",
@@ -52,12 +54,13 @@
         "@angular-devkit/build-angular": "18.2.9",
         "@angular-devkit/core": "18.2.9",
         "@angular-devkit/schematics": "18.2.9",
-        "@angular-eslint/eslint-plugin": "18.0.1",
-        "@angular-eslint/eslint-plugin-template": "18.0.1",
-        "@angular-eslint/template-parser": "18.0.1",
+        "@angular-eslint/eslint-plugin": "^18.3.0",
+        "@angular-eslint/eslint-plugin-template": "^18.3.0",
+        "@angular-eslint/template-parser": "^18.3.0",
         "@angular/cli": "~18.2.0",
         "@angular/compiler-cli": "18.2.12",
         "@angular/language-service": "18.2.12",
+        "@angular/localize": "^19.0.1",
         "@nestjs/schematics": "^10.0.1",
         "@nestjs/testing": "^10.0.2",
         "@nx/cypress": "20.1.2",

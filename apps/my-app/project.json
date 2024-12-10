@@ -13,7 +13,7 @@
                 "outputPath": "dist/apps/my-app",
                 "index": "apps/my-app/src/index.html",
                 "main": "apps/my-app/src/main.ts",
-                "polyfills": ["zone.js"],
+                "polyfills": ["zone.js", "apps/my-app/src/polyfills.ts"],
                 "tsConfig": "apps/my-app/tsconfig.app.json",
                 "assets": [
                     "apps/my-app/src/favicon.ico",
@@ -24,7 +24,7 @@
                     "apps/my-app/src/styles.css"
                 ],
                 "scripts": [
-                    "node_modules/bootstrap/dist/js/bootstrap.min.js"
+                    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
                 ]
             },
             "configurations": {

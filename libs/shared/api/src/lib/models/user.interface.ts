@@ -1,12 +1,13 @@
-import { IEntity } from 'libs/share-a-meal/common/src/lib/entity/entity.model';
+import { IEntity } from './entity.model';
 import { IMeal } from './meal.interface';
 import { IToken, IUserRegistration } from './auth.interface';
 import { Id } from './id.type';
+import { IConcert } from './concert.interface';
+import { ITicket } from './ticket.interface';
 
 export enum UserRole {
     Guest = 'Guest',
-    Admin = 'Admin',
-    Unknown = 'Unknown'
+    Admin = 'Admin'
 }
 
 export enum UserGender {
@@ -19,12 +20,11 @@ export enum UserGender {
  * Minimal user information
  */
 
-export interface IUserIdentity extends IEntity {
+export interface IUserIdentity extends IEntity, IToken {
     name: string;
     emailAddress: string;
     profileImgUrl: string;
     role: UserRole;
-    token?: string;
 }
 
 /**
@@ -42,6 +42,7 @@ export interface IUserInfo extends IUserRegistration {
  * All user information, incl. domain entities
  */
 export interface IUser extends IUserInfo {
+    tickets: ITicket[];
     meals: IMeal[];
 }
 

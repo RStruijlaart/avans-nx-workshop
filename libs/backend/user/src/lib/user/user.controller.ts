@@ -9,8 +9,8 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { IUserInfo, IUser } from '@avans-nx-workshop/shared/api';
-import { CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
+import { IUserInfo, IUser, ITicket } from '@avans-nx-workshop/shared/api';
+import { CreateTicketDto, CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
 import { UserExistGuard } from './user-exists.guard';
 
 @Controller('user')
@@ -47,11 +47,36 @@ export class UserController {
     ): Promise<IUserInfo | null> {
         return this.userService.update(id, user);
     }
-
+    
     @Delete(':id')
     delete(
         @Param('id') id: string,
     ): Promise<IUserInfo | null> {
         return this.userService.delete(id);
+    }
+
+    @Post(':id/tickets')
+    addTicket(
+        @Param('id') id: string,
+        @Body() ticket: CreateTicketDto
+    ): Promise<IUserInfo | null> {
+        return this.userService.addTicket(id, ticket);
+    }
+
+    @Delete(':id/tickets/:ticketId')
+    removeTicket(
+        @Param('id') id: string,
+        @Param('ticketId') ticketId: string
+    ): Promise<IUserInfo | null> {
+        return this.userService.removeTicket(id, ticketId);
+    }
+
+    @Get(':id/hasTicketFor/:concertId')
+    async hasBoughtTicketForConcert(
+        @Param('id') id: string,
+        @Param('concertId') concertId: string
+    ) {
+        const hasTicket = await this.userService.hasBoughtTicketForConcert(id, concertId);
+        return { value: hasTicket };
     }
 }

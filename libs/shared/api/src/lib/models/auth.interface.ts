@@ -14,5 +14,5 @@ export interface IUserRegistration extends IUserCredentials {
 }
 
 export interface IToken {
-    token: string;
+    token?: string;
 }

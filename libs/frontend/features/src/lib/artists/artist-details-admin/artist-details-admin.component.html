@@ -8,6 +8,22 @@
     
           <div class="row gutters-sm justify-content-md-center">
 
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex flex-column align-items-center text-center">
+                          <img src="{{artist.photoURL}}" alt="Please fill in correct img url" width="150">
+                          <div class="mt-3">
+                              <div class="form-group">
+                                  <h6 class="mb-0">Name</h6>
+                                  {{artist.name}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
             <div class="col-md-8">
               <div class="card mb-3">
                 <div class="card-body">
@@ -17,15 +33,6 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         {{artist._id}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Name</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{artist.name}}
                     </div>
                   </div>
                   <hr>
@@ -57,8 +64,7 @@
               </div>
             </div>
 
-          </div>
-          
+          </div>        
         </div>
     }
     </div>

@@ -33,6 +33,7 @@ export class ArtistEditComponent implements OnInit, OnDestroy {
                             name: '',
                             description: '',
                             genre: '',
+                            photoURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/1200px-Icon-round-Question_mark.svg.png"
                         });
                     }else{
                         this.artistId = String(params.get('id'));

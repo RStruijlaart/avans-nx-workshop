@@ -13,7 +13,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                    <img src="{{user.profileImgUrl}}" alt="Please fill in a correct profile img url" class="rounded-circle" width="150" height="150">
                                     <div class="mt-3">
                                         <div class="form-group">
                                             <h6 class="mb-0"><label for="userName">Name</label></h6>
@@ -110,29 +110,41 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0"><label for="userRole">Role</label></h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <div class="form-group">
-                                            <select
-                                                type="text"
-                                                class="form-control"
-                                                id="userRole"
-                                                name="userRole"
-                                                #userTitle="ngModel"
-                                                [(ngModel)]="user.role"
-                                                required
-                                            >
-                                            <option *ngFor="let role of userRoleList" [value]="role.value">
-                                                {{role.key}}
-                                            </option>
-                                            </select>
+                                @if(userId){
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Role</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{user.role}}
                                         </div>
                                     </div>
-                                </div>
-                                <hr>
+                                    <hr>
+                                }@else{
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0"><label for="userRole">Role</label></h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <div class="form-group">
+                                                <select
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="userRole"
+                                                    name="userRole"
+                                                    #userTitle="ngModel"
+                                                    [(ngModel)]="user.role"
+                                                    required
+                                                >
+                                                <option *ngFor="let role of userRoleList" [value]="role.value">
+                                                    {{role.key}}
+                                                </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                }
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <h6 class="mb-0"><label for="userActive">Active</label></h6>
@@ -159,6 +171,26 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0"><label for="userProfileImgURL">Profile Img URL</label></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <div class="form-group">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="userProfileImgURL"
+                                                name="userProfileImgURL"
+                                                #userTitle="ngModel"
+                                                [(ngModel)]="user.profileImgUrl"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <button

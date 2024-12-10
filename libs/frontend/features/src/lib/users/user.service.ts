@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, tap, of } from 'rxjs';
-import { ApiResponse, ICreateUser, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { map, Observable, tap, of, catchError } from 'rxjs';
+import { ApiResponse, ICreateTicket, ICreateUser, ITicket, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 
@@ -8,8 +8,6 @@ import { environment } from '@avans-nx-workshop/shared/util-env';
   providedIn: 'root',
 })
 export class UserService {
-
-  readonly users: IUserInfo[] = [];
 
   constructor(private http: HttpClient) {
     console.log('Service constructor aangeroepen');
@@ -27,12 +25,7 @@ export class UserService {
       );
   }
 
-  getUserById(id: string): IUserInfo {
-    console.log('getUserById aangeroepen');
-    return this.users.filter((user) => user._id === id)[0];
-  }
-
-  getUserByIdAsObservable(id: string): Observable<IUserInfo> {
+  getUserByIdAsObservable(id: string): Observable<IUser> {
     console.log('getUserByIdAsObservable aangeroepen');
     // 'of' is een rxjs operator die een Observable
     // maakt van de gegeven data.
@@ -72,5 +65,61 @@ export class UserService {
           tap(console.log),
           map((response) => response.results)
         );
+  }
+
+  addTicket(id: string, newTicket: ICreateTicket): Observable<IUserInfo | undefined> {
+    console.log('addTicket aangeroepen');
+
+    return this.http
+    .post<{results:any}>(
+      `${environment.dataApiUrl}/user/${id}/tickets`, newTicket
+    )
+    .pipe(
+      map((response) => {
+        const results = response.results;
+        if (results?.response?.error) {
+            throw new Error(results.response.message || 'An unexpected error occurred.');
+        }
+        return results;
+      }),
+      catchError((error: any) => {
+        console.log('error:', error);
+        console.log('error.message:', error.message);
+        return of(undefined);
+      })
+    );
+  }
+
+  deleteTicket(userId: string, concertId: string): Observable<IUserInfo | undefined> {
+    console.log('deleteTicket aangeroepen');
+    
+    return this.http
+    .delete<{results:any}>(
+      `${environment.dataApiUrl}/user/${userId}/tickets/${concertId}`
+    )
+    .pipe(
+      map((response) => {
+        const results = response.results;
+        if (results?.response?.error) {
+            throw new Error(results.response.message || 'An unexpected error occurred.');
+        }
+        return results;
+      }),
+      catchError((error: any) => {
+        console.log('error:', error);
+        console.log('error.message:', error.message);
+        return of(undefined);
+      })
+    );
+  }
+
+  hasBoughtTicket(userId: string, concertId: string): Observable<boolean>{
+    console.log('hasBoughtTicket aangeroepen');
+
+    return this.http
+      .get<ApiResponse<any>>(environment.dataApiUrl + '/user/' + userId + '/hasTicketFor/' + concertId)
+      .pipe(
+        map((response) => response.results.value)
+      );
   }
 }

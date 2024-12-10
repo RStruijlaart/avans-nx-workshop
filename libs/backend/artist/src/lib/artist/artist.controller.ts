@@ -9,7 +9,7 @@ import {
     UseGuards
 } from '@nestjs/common';
 
-import { IArtist } from '@avans-nx-workshop/shared/api';
+import { IArtist, IConcert } from '@avans-nx-workshop/shared/api';
 import { ArtistDto } from '@avans-nx-workshop/backend/dto';
 import { ArtistService } from './artist.service';
 
@@ -25,6 +25,11 @@ export class ArtistController {
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<IArtist | null> {
         return this.artistService.findOne(id);
+    }
+
+    @Get(":id/concerts")
+    async findAllConcertsForArtist(@Param('id') id: string): Promise<IConcert[]> {
+        return this.artistService.findAllConcertsForArtist(id);
     }
 
     @Post('')
