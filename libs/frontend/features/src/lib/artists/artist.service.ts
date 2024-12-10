@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
-import { ApiResponse, IArtist, Genre, IArtistInfo, IUpdateArtist } from '@avans-nx-workshop/shared/api';
+import { ApiResponse, IArtist, Genre, IArtistInfo, IUpdateArtist, IConcert } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 import { AlertService } from '@avans-nx-workshop/shared/alert';
@@ -34,6 +34,20 @@ export class ArtistService {
       );
   }
 
+  getArtistConcerts(id: string): Observable<IConcert[]>{
+    console.log('getArtistConcert aangeroepen');
+
+    return this.http
+      .get<ApiResponse<any>>(environment.dataApiUrl + '/artist/' + id + '/concerts')
+      .pipe(
+        map((response) => 
+          response.results.map((concert: IConcert) => {
+          concert.dateTime = new Date(concert.dateTime);
+          return concert;
+      }))
+      );
+  }
+
   createArtist(artist: IArtistInfo): Observable<IArtist>{
     console.log('createArtist aangeroepen');
 
@@ -46,11 +60,6 @@ export class ArtistService {
 
   deleteArtist(id: string): Observable<IArtist | undefined> {
     console.log('deleteArtist aangeroepen');
-    // return this.http
-    //   .delete<ApiResponse<any>>(environment.dataApiUrl + '/artist/' + id)
-    //       .pipe(
-    //         map((response) => response.results),
-    //   );
 
     return this.http
     .delete<{results:any}>(

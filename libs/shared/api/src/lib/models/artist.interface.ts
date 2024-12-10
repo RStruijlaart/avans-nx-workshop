@@ -31,6 +31,7 @@ export interface IArtist extends IEntity {
     name: string;
     description: string;
     genre: Genre;
+    photoURL: string;
 }
 
 export interface IArtistInfo {
@@ -38,6 +39,7 @@ export interface IArtistInfo {
     name: string;
     description: string;
     genre: Genre;
+    photoURL: string;
 }
 
 export type IUpdateArtist = Partial<IArtist>;

@@ -15,12 +15,14 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@avans-nx-workshop/artist": ["libs/backend/artist/src/index.ts"],
             "@avans-nx-workshop/backend/artist": [
                 "libs/backend/artist/src/index.ts"
             ],
             "@avans-nx-workshop/backend/auth": [
                 "libs/backend/auth/src/index.ts"
+            ],
+            "@avans-nx-workshop/backend/concert": [
+                "libs/backend/concert/src/index.ts"
             ],
             "@avans-nx-workshop/backend/dto": ["libs/backend/dto/src/index.ts"],
             "@avans-nx-workshop/backend/features": [
@@ -32,7 +34,6 @@
             "@avans-nx-workshop/backend/user": [
                 "libs/backend/user/src/index.ts"
             ],
-            "@avans-nx-workshop/backend/concert": ["libs/backend/concert/src/index.ts"],
             "@avans-nx-workshop/features": [
                 "libs/frontend/features/src/index.ts"
             ],

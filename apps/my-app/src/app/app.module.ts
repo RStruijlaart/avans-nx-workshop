@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/ui/header/header.component';
 import { FooterComponent } from './components/ui/footer/footer.component';
 import {FeaturesModule} from '@avans-nx-workshop/features'
 import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
+import { AlertModule } from '@avans-nx-workshop/shared/alert';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { AdminPageComponent } from './components/admin/admin-page/admin-page.com
         RouterModule.forRoot(appRoutes, {
             initialNavigation: 'enabledBlocking'
         }),
-        FeaturesModule
+        FeaturesModule,
+        AlertModule
     ],
     providers: [],
     bootstrap: [AppComponent]

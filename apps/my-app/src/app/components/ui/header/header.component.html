@@ -9,6 +9,10 @@
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li class="nav-item"><a routerLink="dashboard" [routerLinkActive]="['active']" class="nav-link" aria-current="page">Dashboard</a></li>
             <li class="nav-item"><a routerLink="about" [routerLinkActive]="['active']" class="nav-link">About</a></li>
+            @if(user){
+              <li class="nav-item"><a class="nav-link" routerLink="artists">Artists</a></li>
+              <li class="nav-item"><a class="nav-link" routerLink="tickets">Tickets</a></li>
+            }
             @if(user && user.role == userRole.Admin){
               <li class="nav-item"><a class="nav-link" routerLink="admin">Admin page</a></li>
             }

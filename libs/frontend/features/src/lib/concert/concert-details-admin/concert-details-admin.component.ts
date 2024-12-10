@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './concert-details-admin.component.html',
     styles: []
 })
-export class ConcertDetailsComponent implements OnInit, OnDestroy {
+export class ConcertDetailsAdminComponent implements OnInit, OnDestroy {
     concertId: string | null = null;
     concert?: IConcert;
     sub?: Subscription;

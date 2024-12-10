@@ -8,7 +8,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { ArtistListAdminComponent } from './artists/artist-list-admin/artist-list-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { ArtistDetailsComponent } from './artists/artist-details-admin/artist-details-admin.component';
 import { ArtistEditComponent } from './artists/artist-edit/artist-edit.component';
 import { AuthService } from './auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
@@ -17,7 +16,12 @@ import { AlertModule } from '@avans-nx-workshop/shared/alert';
 import { LoggedInAsAdminAuthGuard, LoggedInAuthGuard, UserEditOwnDataAuthGuard } from './auth/auth.guards';
 import { ConcertListAdminComponent } from './concert/concert-list-admin/concert-list-admin.component';
 import { ConcertEditComponent } from './concert/concert-edit/concert-edit.component';
-import { ConcertDetailsComponent } from './concert/concert-details-admin/concert-details-admin.component';
+import { ConcertDetailsAdminComponent } from './concert/concert-details-admin/concert-details-admin.component';
+import { ArtistListComponent } from './artists/artist-list/artist-list.component';
+import { ArtistDetailsAdminComponent } from './artists/artist-details-admin/artist-details-admin.component';
+import { ArtistDetailsComponent } from './artists/artist-details/artist-details.component';
+import { ConcertDetailsComponent } from './concert/concert-details/concert-details.component';
+import { TicketListComponent } from './users/ticket-list/ticket-list.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AlertModule],
@@ -26,13 +30,17 @@ import { ConcertDetailsComponent } from './concert/concert-details-admin/concert
         UserListComponent,
         ArtistListAdminComponent,
         UserEditComponent, 
-        ArtistDetailsComponent, 
         ArtistEditComponent, 
         LoginComponent, 
         RegisterComponent, 
         ConcertListAdminComponent, 
         ConcertEditComponent,
-        ConcertDetailsComponent
+        ConcertDetailsAdminComponent,
+        ArtistListComponent,
+        ArtistDetailsAdminComponent,
+        ArtistDetailsComponent,
+        ConcertDetailsComponent,
+        TicketListComponent
     ],
     providers: [UserService, provideHttpClient(), AuthService, LoggedInAuthGuard, LoggedInAsAdminAuthGuard, UserEditOwnDataAuthGuard],
 })

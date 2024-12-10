@@ -1,0 +1,30 @@
+<div class="container">
+    @if(user){
+        <header class="page-header">
+            <h1>Your Tickets</h1>
+        </header>
+    
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @for (ticket of user.tickets; track ticket.accesCode) {
+                <div class="col">
+                    <div class="card ticket-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ticket.concert.name}}</h5>
+                            <hr>
+                            <p class="ticket-info">
+                                <strong>Seat:</strong> {{ticket.seat}}<br>
+                                <strong>Access Code:</strong> {{ticket.accesCode}}<br>
+                                <strong>Info:</strong> {{ticket.info}}
+                            </p>
+                            <a routerLink="/concerts/{{ticket.concert._id}}" class="btn btn-outline-primary btn-sm me-2">View Concert Details</a>
+                            <a (click)="deleteTicket(ticket.concert._id)" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }@else {
+        <h2 class="text-center">No user found!</h2>
+    }
+    
+</div>

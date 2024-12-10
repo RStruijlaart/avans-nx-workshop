@@ -75,7 +75,8 @@ export class UserController {
     async hasBoughtTicketForConcert(
         @Param('id') id: string,
         @Param('concertId') concertId: string
-    ): Promise<boolean | null> {
-        return this.userService.hasBoughtTicketForConcert(id, concertId);
+    ) {
+        const hasTicket = await this.userService.hasBoughtTicketForConcert(id, concertId);
+        return { value: hasTicket };
     }
 }

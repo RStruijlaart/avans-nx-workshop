@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                       @for (artist of concert.artists; track artist._id; let last = $last) {
-                        <a routerLink="../../artists/{{artist._id}}">{{artist.name}}</a>@if(!last){, }
+                        <a routerLink="../../artists-admin/{{artist._id}}">{{artist.name}}</a>@if(!last){, }
                         
                       }
                     </div>

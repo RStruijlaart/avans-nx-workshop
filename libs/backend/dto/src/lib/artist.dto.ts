@@ -15,4 +15,8 @@ export class ArtistDto implements IArtist {
     @IsString()
     @IsNotEmpty()
     genre!: Genre;
+
+    @IsString()
+    @IsNotEmpty()
+    photoURL!: string;
 }

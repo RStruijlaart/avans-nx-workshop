@@ -3,6 +3,13 @@
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a routerLink="dashboard" class="nav-link px-2 text-body-secondary">Dashboard</a></li>
       <li class="nav-item"><a routerLink="about" class="nav-link px-2 text-body-secondary">About</a></li>
+      @if(user){
+        <li class="nav-item"><a class="nav-link px-2 text-body-secondary" routerLink="artists">Artists</a></li>
+        <li class="nav-item"><a class="nav-link px-2 text-body-secondary" routerLink="tickets">Tickets</a></li>
+      }
+      @if(user && user.role == userRole.Admin){
+        <li class="nav-item"><a class="nav-link px-2 text-body-secondary" routerLink="admin">Admin page</a></li>
+      }
     </ul>
     <p class="text-center text-body-secondary">© 2024 MusicMate, Inc</p>
   </footer>

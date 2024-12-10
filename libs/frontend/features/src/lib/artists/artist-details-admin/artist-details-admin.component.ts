@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './artist-details-admin.component.html',
     styles: []
 })
-export class ArtistDetailsComponent implements OnInit, OnDestroy {
+export class ArtistDetailsAdminComponent implements OnInit, OnDestroy {
     artistId: string | null = null;
     artist?: IArtist;
     sub?: Subscription;

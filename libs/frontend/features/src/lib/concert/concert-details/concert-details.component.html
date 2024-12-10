@@ -1,0 +1,59 @@
+<div class="container">
+    @if(concert){
+
+        <div class="concert-header">
+            <h1>{{concert.name}}</h1>
+        </div>
+
+        <div class="row">
+            <!-- Concert Info -->
+            <div class="col-md-8">
+                <div class="concert-info p-4">
+                    <h2>Concert Details</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Location:</strong> {{concert.location}}</li>
+                        <li class="list-group-item"><strong>Date & Time:</strong> {{concert.dateTime.toLocaleString('en-GB', { timeZone: 'Europe/Amsterdam' })}}</li>
+                        <li class="list-group-item"><strong>Total Seats:</strong> {{concert.seatCount}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ticket CTA -->
+            <div class="col-md-4">
+                <div class="card p-4 text-center">
+                    
+                    @if(hasTicket == false){
+                        <h3 class="mb-3">Book Your Ticket</h3>
+                        <p>Secure your spot for this amazing concert!</p>
+                        <button (click)="buyTicket()" class="btn btn-book btn-lg btn-primary">Book Ticket</button>
+                    }@else{
+                        <h4 class="mb-3">You already bought a ticket to this concert!</h4>
+                        <p>See all your bought tickets!</p>
+                        <button routerLink="/tickets" class="btn btn-book btn-lg btn-primary">Go to tickets</button>
+                    }
+                </div>
+            </div>
+        </div>
+    
+        <h2 class="text-center my-4">Performing Artists</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @for (artist of concert.artists; track artist._id) {
+                <div class="col">
+                    <div class="card">
+                        <div class="artist-img-container">
+                            <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{artist.name}}</h5>
+                            <p class="card-text">{{artist.genre}}</p>
+                            <a routerLink="../../artists/{{artist._id}}" class="btn btn-outline-primary btn-sm">View Artist</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    }@else{
+        <h2 class="text-center">Concert with {{concertId}} not found!</h2>
+    }
+</div>

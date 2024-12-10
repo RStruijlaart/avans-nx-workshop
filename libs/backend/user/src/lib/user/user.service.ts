@@ -79,10 +79,13 @@ export class UserService {
     }
 
     async removeTicket(userId: string, ticketId: string): Promise<IUserInfo | null> {
+        console.log("Deleted ticket")
+        console.log(userId);
+        console.log(ticketId);
         return this.userModel.findByIdAndUpdate(
             { _id: userId },
-            { $pull: { tickets: {_id: ticketId} } }
-        );
+            { $pull: { tickets: {concert: ticketId} } }
+        ).exec();
     }
 
     async hasBoughtTicketForConcert(userId: string, concertId: string): Promise<boolean> {

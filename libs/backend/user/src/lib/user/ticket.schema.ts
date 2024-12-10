@@ -10,18 +10,6 @@ import { IsMongoId } from 'class-validator';
 
 export type TicketDocument = Ticket & Document;
 
-function generateRandomString(length: number, charset: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"): string {
-    let result = '';
-    const charsetLength = charset.length;
-
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * charsetLength);
-        result += charset[randomIndex];
-    }
-
-    return result;
-}
-
 @Schema()
 export class Ticket implements ITicket{
     @IsMongoId()
@@ -29,8 +17,7 @@ export class Ticket implements ITicket{
 
     @Prop({
         required: true,
-        type: String,
-        default: generateRandomString(16)
+        type: String
     })
     accesCode!: string;
 

@@ -30,6 +30,12 @@ export class Artist implements IArtist {
         type: String,
     })
     genre!: Genre;
+
+    @Prop({
+        required: true,
+        type: String,
+    })
+    photoURL!: string;
 }
 
 export const ArtistSchema = SchemaFactory.createForClass(Artist);
