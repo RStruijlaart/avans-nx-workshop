@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 import { Subscription, tap, Observable, of, switchMap } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ICreateUser, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { ICreateUser, IUpdateUser, IUser, IUserIdentity, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'avans-nx-workshop-user-edit',
@@ -25,7 +26,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       }[] = Object.entries(UserRole)
         .map(([key, value]) => ({ key, value }));;
 
-    constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {}
+    constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {}
 
     ngOnInit(): void {
 
@@ -38,6 +39,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
                             name: '',
                             emailAddress: '',
                             password: '',
+                            profileImgUrl: 'https://t3.ftcdn.net/jpg/00/57/04/58/360_F_57045887_HHJml6DJVxNBMqMeDqVJ0ZQDnotp5rGD.jpg',
                         });
                     }else{
                         this.userId = String(params.get('id'));
@@ -64,7 +66,20 @@ export class UserEditComponent implements OnInit, OnDestroy {
             user._id = this.userId;
             this.sub?.add(this.userService.updateUser(user).subscribe(() => {
                 console.log('update');
-                this.router.navigate(['../../' + this.userId], { relativeTo: this.route });
+
+                this.sub!.add(this.authService.currentUser$.subscribe((currentUser?: IUserIdentity) => {
+                    let updatedUser: IUserIdentity = {
+                        _id: user._id,
+                        name: user.name,
+                        emailAddress: user.emailAddress,
+                        profileImgUrl: user.profileImgUrl,
+                        role: user.role,
+                        token: currentUser!.token
+                    }
+
+                    this.authService.saveUserToLocalStorage(updatedUser)
+                    this.router.navigate(['../../' + this.userId], { relativeTo: this.route });
+                }))
             }));
             
         } else {

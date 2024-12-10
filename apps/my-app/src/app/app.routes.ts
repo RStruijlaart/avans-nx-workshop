@@ -45,8 +45,8 @@ export const appRoutes: Route[] = [
     { path: "tickets", component: TicketListComponent, canActivate: [LoggedInAuthGuard]},
     { path: "users-admin", pathMatch: "full", component: UserListComponent, canActivate: [LoggedInAsAdminAuthGuard]},
     { path: "users-admin/new", pathMatch: "full", component: UserEditComponent, canActivate: [LoggedInAsAdminAuthGuard] },
-    { path: "users-admin/:id", pathMatch: "full", component: UserDetailsComponent, canActivate: [LoggedInAuthGuard] },
-    { path: "users-admin/edit/:id", pathMatch: "full", component: UserEditComponent, canActivate: [LoggedInAuthGuard, UserEditOwnDataAuthGuard] },
+    { path: "users/:id", pathMatch: "full", component: UserDetailsComponent, canActivate: [LoggedInAuthGuard] },
+    { path: "users/edit/:id", pathMatch: "full", component: UserEditComponent, canActivate: [LoggedInAuthGuard, UserEditOwnDataAuthGuard] },
     // Catch-all route: als er geen URL match is gaan we naar component-a (of dashboard, of naar 404)
 
 ];

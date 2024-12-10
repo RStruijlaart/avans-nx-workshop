@@ -50,14 +50,17 @@ export class AuthService {
     console.log(`login at ${environment.dataApiUrl}/auth/login`);
 
     return this.http
-      .post<{results:IUserIdentity}>(
+      .post<{results:any}>(
         `${environment.dataApiUrl}/auth/login`,
         { emailAddress: email, password: password },
         { headers: this.headers }
       )
       .pipe(
         map((response) => {
-          const user = response.results; 
+          if(response.results?.response?.error != undefined){
+            throw new Error(response.results.response.message);
+          }
+          const user = response.results;
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
           this.alertService.success('You have been logged in');
@@ -65,9 +68,7 @@ export class AuthService {
         }),
         catchError((error: any) => {
           console.log('error:', error);
-          console.log('error.message:', error.message);
-          console.log('error.error.message:', error.error.message);
-          this.alertService.error(error.error.message || error.message);
+          this.alertService.error(error);
           return of(undefined);
         })
       );
@@ -83,7 +84,6 @@ export class AuthService {
       })
       .pipe(
         map((user) => {
-          //const user = new User(response);
           console.dir(user);
           this.alertService.success('You have been registered');
           return user;
@@ -149,7 +149,7 @@ export class AuthService {
     return of(localUser);
   }
 
-  private saveUserToLocalStorage(user: IUserIdentity): void {
+  saveUserToLocalStorage(user: IUserIdentity): void {
     localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
   }
 

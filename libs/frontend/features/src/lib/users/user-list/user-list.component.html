@@ -22,7 +22,7 @@
                 @for (user of users; track user._id) {
                     <tr>
                         <td>{{user._id}}</td>
-                        <td><a routerLink="{{user._id}}">{{user.name}}</a></td>
+                        <td><a routerLink="../users/{{user._id}}">{{user.name}}</a></td>
                         <td>{{user.emailAddress}}</td>
                         <td>{{user.isActive}}</td>
                     </tr>
