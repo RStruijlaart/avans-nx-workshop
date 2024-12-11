@@ -79,14 +79,14 @@ export class AuthService {
     console.log(userData);
     
     return this.http
-      .post<IUserIdentity>(`${environment.dataApiUrl}/user`, userData, {
+      .post<any>(`${environment.dataApiUrl}/user`, userData, {
         headers: this.headers,
       })
       .pipe(
         map((user) => {
           console.dir(user);
           this.alertService.success('You have been registered');
-          return user;
+          return user.results;
         }),
         catchError((error: any) => {
           console.log('error:', error);

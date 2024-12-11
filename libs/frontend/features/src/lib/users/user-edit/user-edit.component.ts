@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 import { Subscription, tap, Observable, of, switchMap } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ICreateUser, IUpdateUser, IUser, IUserIdentity, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { ICreateUser, INeo4jUser, IUpdateUser, IUser, IUserIdentity, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -83,9 +83,12 @@ export class UserEditComponent implements OnInit, OnDestroy {
             }));
             
         } else {
-            this.sub?.add(this.userService.createUser(user).subscribe(() => {
-                console.log('create');
-                this.router.navigate(['..'], { relativeTo: this.route });
+            this.sub?.add(this.userService.createUser(user).subscribe((newUser: IUserInfo) => {
+                const neo4jUser: INeo4jUser = {_id: newUser._id} 
+
+                this.sub!.add(this.userService.createNeo4jUser(neo4jUser).subscribe(() => {
+                    this.router.navigate(['..'], { relativeTo: this.route });
+                }))
             }));
             
         };

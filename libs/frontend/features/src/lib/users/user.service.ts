@@ -1,16 +1,22 @@
-import { Injectable } from '@angular/core';
-import { map, Observable, tap, of, catchError } from 'rxjs';
-import { ApiResponse, ICreateTicket, ICreateUser, ITicket, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { map, Observable, tap, of, catchError, Subscription } from 'rxjs';
+import { ApiResponse, ICreateTicket, ICreateUser, INeo4jUser, ITicket, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService implements OnDestroy{
 
   constructor(private http: HttpClient) {
     console.log('Service constructor aangeroepen');
+  }
+
+  subs: Subscription = new Subscription();
+
+  ngOnDestroy(): void {
+      this.subs.unsubscribe();
   }
 
   getUsersAsObservable(): Observable<IUserInfo[]>{
@@ -121,5 +127,18 @@ export class UserService {
       .pipe(
         map((response) => response.results.value)
       );
+  }
+
+  createNeo4jUser(user: INeo4jUser): Observable<any>{
+    console.log('createNeo4jUser aangeroepen');
+    return this.http
+    .post<ApiResponse<any>>(environment.dataApiUrl + '/neo4j/user', user);
+  }
+
+  deleteNeo4jUser(id: string): Observable<any> {
+    console.log('deleteNeo4jUser aangeroepen');
+
+    return this.http
+    .delete<ApiResponse<any>>(environment.dataApiUrl + '/neo4j/user/' + id);
   }
 }

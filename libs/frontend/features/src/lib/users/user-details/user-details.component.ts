@@ -47,7 +47,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     deleteUser(id: string): void{
         this.sub?.add(this.userService.deleteUser(id).subscribe((result) => {
             console.log(result);
-            this.router.navigate([".."], { relativeTo: this.route });
+            this.sub!.add(this.userService.deleteNeo4jUser(result._id).subscribe(() => {
+                this.router.navigate(["../../users-admin"], { relativeTo: this.route });
+            }))
         }));
     }
 }

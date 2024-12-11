@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
 import {
+    INeo4jUser,
     // ICreateUser,
     IUpdateUser,
     IUpsertUser,
@@ -71,4 +72,10 @@ export class UpdateUserDto implements IUpdateUser {
     @IsString()
     @IsOptional()
     name!: string;
+}
+
+export class CreateNeo4jUserDto implements INeo4jUser{
+    @IsString()
+    @IsNotEmpty()
+    _id!: string;
 }

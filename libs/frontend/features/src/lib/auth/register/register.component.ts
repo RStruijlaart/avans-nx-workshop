@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IUserIdentity } from '@avans-nx-workshop/shared/api';
+import { INeo4jArtist, IUserIdentity } from '@avans-nx-workshop/shared/api';
+import { UserService } from '../../users/user.service';
 
 @Component({
   selector: 'app-register',
@@ -12,9 +13,9 @@ import { IUserIdentity } from '@avans-nx-workshop/shared/api';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
-  subs?: Subscription;
+  subs: Subscription = new Subscription();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -47,7 +48,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.authService.register(userValues).subscribe((user) => {
         if (user) {
           console.log('user = ', user);
-          this.router.navigate(['/login']);
+          const neo4jUser: INeo4jArtist = {_id: user._id}
+          this.subs.add(this.userService.createNeo4jUser(neo4jUser).subscribe(() => {
+            this.router.navigate(['/login']);
+          }))
         }
       });
     } else {

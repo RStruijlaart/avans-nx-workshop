@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsBoolean, IsOptional } from 'class-validator';
-import { IArtist, Id, Genre } from '@avans-nx-workshop/shared/api';
+import { IArtist, Id, Genre, INeo4jArtist } from '@avans-nx-workshop/shared/api';
 
 export class ArtistDto implements IArtist {
     _id!: Id;
@@ -19,4 +19,10 @@ export class ArtistDto implements IArtist {
     @IsString()
     @IsNotEmpty()
     photoURL!: string;
+}
+
+export class CreateNeo4jArtistDto implements INeo4jArtist{
+    @IsString()
+    @IsNotEmpty()
+    _id!: string;
 }

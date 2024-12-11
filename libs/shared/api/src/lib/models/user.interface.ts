@@ -46,6 +46,9 @@ export interface IUser extends IUserInfo {
     meals: IMeal[];
 }
 
+export interface INeo4jUser{
+    _id: string;
+}
 export type ICreateUser = Pick<IUser, 'name' | 'password' | 'emailAddress'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;
 export type IUpsertUser = IUser;

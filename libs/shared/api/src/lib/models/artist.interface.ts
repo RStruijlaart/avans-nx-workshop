@@ -42,4 +42,8 @@ export interface IArtistInfo {
     photoURL: string;
 }
 
+export interface INeo4jArtist {
+    _id: Id;
+}
+
 export type IUpdateArtist = Partial<IArtist>;
