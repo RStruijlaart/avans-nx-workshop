@@ -18,7 +18,11 @@ async function bootstrap() {
     const globalPrefix = 'api';
     app.setGlobalPrefix(globalPrefix);
 
-    const corsOptions: CorsOptions = {};
+    const corsOptions: CorsOptions = {
+        origin: 'https://thankful-mushroom-00794a703.5.azurestaticapps.net', // Vervang door jouw front-end domein
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true, // Optioneel, als je cookies gebruikt
+      };
     app.enableCors(corsOptions);
 
     app.useGlobalInterceptors(new ApiResponseInterceptor());
