@@ -12,14 +12,19 @@ import { Neo4jBackendModule } from '@avans-nx-workshop/backend/neo4j'
 
 @Module({
     imports: [
-
-        Neo4jModule.forRoot({
-            scheme: environment.NEO4J_DB_SCHEME,
-            host: environment.NEO4J_DB_HOST,
-            port: environment.NEO4J_DB_PORT,
-            username: environment.NEO4J_DB_USER,
-            password: environment.NEO4J_DB_PASSWORD,
+        MongooseModule.forRoot(environment.MONGO_DB_CONNECTION_STRING, {
+            connectionFactory: (connection) => {
+                connection.on('connected', () => {
+                    // console.log('is connected');
+                    Logger.verbose(
+                        `Mongoose db connected to ${environment.MONGO_DB_CONNECTION_STRING}`
+                    );
+                });
+                connection._events.connected();
+                return connection;
+            }
         }),
+        
         BackendFeaturesMealModule,
         AuthModule,
         UsersModule,
