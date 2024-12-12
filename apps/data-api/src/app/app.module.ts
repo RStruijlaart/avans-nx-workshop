@@ -24,11 +24,19 @@ import { Neo4jBackendModule } from '@avans-nx-workshop/backend/neo4j'
                 return connection;
             }
         }),
+        Neo4jModule.forRoot({
+            scheme: environment.NEO4J_DB_SCHEME,
+            host: environment.NEO4J_DB_HOST,
+            port: environment.NEO4J_DB_PORT,
+            username: environment.NEO4J_DB_USER,
+            password: environment.NEO4J_DB_PASSWORD,
+        }),
         BackendFeaturesMealModule,
         AuthModule,
         UsersModule,
         ArtistModule,
-        ConcertModule
+        ConcertModule,
+        Neo4jBackendModule
     ],
     controllers: [],
     providers: []
