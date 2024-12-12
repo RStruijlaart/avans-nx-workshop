@@ -22,19 +22,25 @@ export class Neo4JUserService {
         );
     }
 
-    async getRecommendedArtistsForUser(_id: string): Promise<void> {
-        this.logger.log('delete neo4j user');
+    async getRecommendedArtistsForUser(_id: string): Promise<Array<string>> {
+        this.logger.log('get recommended artists for neo4j user');
         const results = await this.neo4jService.read(
-            `MATCH (a:Artist)<-[r:RATES]-(other:User)
-            WHERE r.rating >= 4
-            WITH a, collect(other.id) AS raters
-            MATCH (u:User {id: '${_id}'})
-            WHERE NOT EXISTS {
-                MATCH (u)-[:RATES]->(a)
+            `MATCH (u:User {_id: "${_id}"})-[r1:RATES]->(commonArtist:Artist)<-[r2:RATES]-(otherUser:User)
+            WHERE r1.rating >= 3 AND r2.rating >= 3
+
+            MATCH (otherUser)-[r3:RATES]->(recommendedArtist:Artist)
+            WHERE r3.rating >= 3
+            AND NOT EXISTS {
+                MATCH (u)-[:RATES]->(recommendedArtist)
             }
-            RETURN a`
+
+            RETURN DISTINCT recommendedArtist._id AS artistId
+            LIMIT 3`
         );
 
-        console.log(results);
+        const recommendedArtists = results.records.map(
+            (record: any) => record._fields[0]
+        );
+        return recommendedArtists;
     }
 }

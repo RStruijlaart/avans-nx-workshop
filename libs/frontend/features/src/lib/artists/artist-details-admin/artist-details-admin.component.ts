@@ -31,10 +31,12 @@ export class ArtistDetailsAdminComponent implements OnInit, OnDestroy {
 
     deleteArtist(id: string): void{
         this.sub?.add(this.artistService.deleteArtist(id).subscribe({
-            next: (user: IArtist | undefined) => {
-                if (user) {
-                    console.log('Deleted artist:', user);
-                    this.router.navigate(['..'], { relativeTo: this.route });
+            next: (artist: IArtist | undefined) => {
+                if (artist) {
+                    console.log('Deleted artist:', artist);
+                    this.sub!.add(this.artistService.deleteNeo4jArtist(artist._id).subscribe(() => {
+                        this.router.navigate(["../../artists-admin"], { relativeTo: this.route });
+                    }))
                 }
             },
             error: (err) => {

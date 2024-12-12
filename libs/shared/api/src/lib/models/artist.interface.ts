@@ -46,4 +46,13 @@ export interface INeo4jArtist {
     _id: Id;
 }
 
+export interface ICreateRatingDto {
+    userId: string;
+    artistId: string;
+    rating: number;
+}
+
+export interface IFindArtistIdArray {
+    artistIds: Array<string>
+}
 export type IUpdateArtist = Partial<IArtist>;

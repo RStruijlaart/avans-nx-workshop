@@ -18,7 +18,7 @@ export class Neo4JUserController {
         return results;
     }
 
-    @Get('recommend/:id')
+    @Get(':id/recommend')
     async getRecommendedArtistsForUser(@Param('id') _id: string): Promise<any> {
         const results = await this.neo4jService.getRecommendedArtistsForUser(_id);
         return results;

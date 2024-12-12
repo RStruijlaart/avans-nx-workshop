@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Artist as ArtistModel, ArtistDocument } from './artist.schema';
 import { Concert as ConcertModel, ConcertDocument } from '@avans-nx-workshop/backend/concert';
-import { IArtist, IConcert} from '@avans-nx-workshop/shared/api';
+import { IArtist, IConcert, IFindArtistIdArray} from '@avans-nx-workshop/shared/api';
 // import { Meal, MealDocument } from '@avans-nx-workshop/backend/features';
 import { ArtistDto } from '@avans-nx-workshop/backend/dto';
 import { error } from 'console';
@@ -23,6 +23,12 @@ export class ArtistService {
     async findAll(): Promise<IArtist[]> {
         this.logger.log(`Finding all items`);
         const items = await this.artistModel.find();
+        return items;
+    }
+
+    async findArtistsWithId(body: IFindArtistIdArray): Promise<IArtist[]> {
+        this.logger.log(`Finding all items`);
+        const items = await this.artistModel.find({ _id: { $in: body.artistIds } });
         return items;
     }
 
@@ -69,5 +75,4 @@ export class ArtistService {
         });
     }
 
-    
 }

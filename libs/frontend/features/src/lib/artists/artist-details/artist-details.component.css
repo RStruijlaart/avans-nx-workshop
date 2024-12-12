@@ -34,3 +34,48 @@
     transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
+
+.rating-section {
+    margin-bottom: 20px;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.star {
+    font-size: 32px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.star:hover,
+.star.selected {
+    color: #ffcc00;
+}
+
+.star.rated {
+    color: #ffcc00;
+}
+
+.average-rating {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.average-rating-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-right: 5px;
+}
+
+.star-icon {
+    font-size: 28px;
+    color: #ffcc00;
+    margin-left: 5px;
+}

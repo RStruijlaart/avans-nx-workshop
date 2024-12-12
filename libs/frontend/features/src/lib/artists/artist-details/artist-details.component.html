@@ -4,6 +4,38 @@
             <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
             <h1>{{artist.name}}</h1>
             <p class="lead">{{artist.genre}} | {{artist.description}}</p>
+            <div class="average-rating">
+                <p>
+                    <small class="lead">Average Rating: </small>
+                    @if(averageRating){
+                        <i class="bi bi-star-fill star-icon">★ </i>
+                        <span class="average-rating-value">{{averageRating | number: '1.1-1'}}</span> 
+                    }@else{
+                        <small class="lead">No ratings yet!</small>
+                    }
+                </p>
+            </div>
+        </div>
+
+        <div class="rating-section text-center mb-4">
+            <h4>Rate {{artist.name}}</h4>
+            <div class="stars" id="star-rating">
+                @for (star of stars; track star) {
+                    <i 
+                        class="bi bi-star star" 
+                        [class.selected]="isStarSelected(star)"
+                        (click)="rateArtist(star)" 
+                        (mouseover)="hoverStars(star)" 
+                        (mouseleave)="resetStars()">
+                        ★
+                    </i>
+                }
+            </div>
+            @if(this.rating > 0){
+                <p id="rating-feedback" class="text-muted mt-2">Click to update your rating of this artist!</p>
+            }@else{
+                <p id="rating-feedback" class="text-muted mt-2">Click to rate this artist!</p>
+            }
         </div>
     
         @if(concerts.length == 0){

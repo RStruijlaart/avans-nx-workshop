@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
-import { ApiResponse, IArtist, Genre, IArtistInfo, IUpdateArtist, IConcert } from '@avans-nx-workshop/shared/api';
+import { ApiResponse, IArtist, Genre, IArtistInfo, IUpdateArtist, IConcert, INeo4jArtist, ICreateRatingDto, IFindArtistIdArray } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
 import { AlertService } from '@avans-nx-workshop/shared/alert';
@@ -92,4 +92,64 @@ export class ArtistService {
           map((response) => response.results)
         );
   }
+
+  createNeo4jArtist(artist: INeo4jArtist): Observable<any>{
+    console.log('createNeo4jArtist aangeroepen');
+    return this.http
+    .post<ApiResponse<any>>(environment.dataApiUrl + '/neo4j/artist', artist);
+  }
+
+  deleteNeo4jArtist(id: string): Observable<any> {
+    console.log('deleteNeo4jArtist aangeroepen');
+
+    return this.http
+    .delete<ApiResponse<any>>(environment.dataApiUrl + '/neo4j/artist/' + id);
+  }
+
+  addRatingToNeo4jArtist(createRatingDto: ICreateRatingDto): Observable<any>{
+    console.log('addRatingToNeo4jArtist aangeroepen');
+    return this.http
+    .post<ApiResponse<any>>(environment.dataApiUrl + '/neo4j/artist/rating', createRatingDto);
+  }  
+
+  getRatingForNeo4jArtist(artistId: string, userId: string): Observable<number>{
+    console.log('addRatingToNeo4jArtist aangeroepen');
+    return this.http
+    .get<ApiResponse<any>>(environment.dataApiUrl + `/neo4j/artist/${artistId}/rating/${userId}`)
+    .pipe(
+      map((response) => response.results)
+    )
+  }  
+
+  getAverageRatingForNeo4jArtist(artistId: string): Observable<number>{
+    console.log('getAverageRatingForNeo4jArtist aangeroepen');
+    return this.http
+    .get<ApiResponse<any>>(environment.dataApiUrl + `/neo4j/artist/${artistId}/rating`)
+    .pipe(
+      map((response) => response.results)
+    )
+  }  
+
+  getRecommendedArtistIdsForUser(userId: string): Observable<Array<string>>{
+    console.log('getRecommendedArtistsForUser aangeroepen');
+    
+    return this.http.get<ApiResponse<any>>(environment.dataApiUrl + `/neo4j/user/${userId}/recommend`)
+    .pipe(
+      map((response) => response.results)
+    )
+  }
+
+  getArtistsFromIdArray(artistIds: Array<string>): Observable<IArtist[]>{
+    console.log('getArtistsFromIdArray aangeroepen');
+
+    const body: IFindArtistIdArray = {
+      artistIds: artistIds
+    }
+    
+    return this.http
+    .post<ApiResponse<any>>(environment.dataApiUrl + `/artist/idArray`, body)
+    .pipe(
+      map((response) => response.results)
+    )
+  } 
 }

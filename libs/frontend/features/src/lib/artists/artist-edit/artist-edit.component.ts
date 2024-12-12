@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ArtistService } from '../artist.service';
 import { Subscription, tap, Observable, of, switchMap } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Genre, IArtist, IArtistInfo } from '@avans-nx-workshop/shared/api';
+import { Genre, IArtist, IArtistInfo, INeo4jArtist } from '@avans-nx-workshop/shared/api';
 
 @Component({
     selector: 'avans-nx-workshop-artist-edit',
@@ -64,9 +64,14 @@ export class ArtistEditComponent implements OnInit, OnDestroy {
             }));
             
         } else {
-            this.sub?.add(this.artistService.createArtist(artist).subscribe(() => {
+            this.sub?.add(this.artistService.createArtist(artist).subscribe((newArtist: IArtist) => {
                 console.log('create');
-                this.router.navigate(['..'], { relativeTo: this.route });
+
+                const neo4jArtist: INeo4jArtist = {_id: newArtist._id} 
+
+                this.sub!.add(this.artistService.createNeo4jArtist(neo4jArtist).subscribe(() => {
+                    this.router.navigate(['..'], { relativeTo: this.route });
+                }))
             }));
             
         };
