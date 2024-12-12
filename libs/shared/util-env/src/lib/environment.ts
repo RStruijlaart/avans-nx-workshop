@@ -8,7 +8,7 @@ export const environment: IEnvironment = {
 
     NEO4J_DB_SCHEME: 'bolt',
     NEO4J_DB_HOST: 'dummy',
-    NEO4J_DB_PORT: 0,
+    NEO4J_DB_PORT: 7687,
     NEO4J_DB_USER: 'dummy',
     NEO4J_DB_PASSWORD: 'dummy',
 
