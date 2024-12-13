@@ -36,7 +36,7 @@ import { Neo4jBackendModule } from '@avans-nx-workshop/backend/neo4j'
         UsersModule,
         ArtistModule,
         ConcertModule,
-
+        Neo4jBackendModule
     ],
     controllers: [],
     providers: []
