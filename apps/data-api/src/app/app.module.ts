@@ -9,6 +9,7 @@ import { Logger } from '@nestjs/common';
 import { ConcertModule } from '@avans-nx-workshop/backend/concert'
 import { Neo4jModule, Neo4jScheme } from 'nest-neo4j/dist';
 import { Neo4jBackendModule } from '@avans-nx-workshop/backend/neo4j'
+import { ConditionalModule } from '@nestjs/config'
 
 @Module({
     imports: [
