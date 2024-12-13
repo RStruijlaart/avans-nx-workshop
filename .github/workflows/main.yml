@@ -89,8 +89,8 @@ jobs:
         run: unzip data-api-release.zip
 
       - name: Install dependencies
-        run: npm install
-
+        run: npm install --force
+ 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
