@@ -23,10 +23,10 @@ export class Neo4JArtistService {
     }
 
     async addRating(createRatingDto: CreateRatingDto): Promise<void> {
-        this.logger.log('add neo4j rating to artist artist');
+        this.logger.log('Add neo4j rating to artist');
         await this.neo4jService.write(
-            `MATCH (u:User {_id: '${createRatingDto.userId}'})
-            MATCH(a:Artist {_id: '${createRatingDto.artistId}'})
+            `MERGE (u:User {_id: '${createRatingDto.userId}'})
+            MERGE (a:Artist {_id: '${createRatingDto.artistId}'})
             MERGE (u)-[r:RATES]->(a)
             SET r.rating = ${createRatingDto.rating}`
         );
