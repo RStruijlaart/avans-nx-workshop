@@ -9,22 +9,24 @@
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li class="nav-item"><a routerLink="dashboard" [routerLinkActive]="['active']" class="nav-link" aria-current="page">Dashboard</a></li>
             <li class="nav-item"><a routerLink="about" [routerLinkActive]="['active']" class="nav-link">About</a></li>
-            @if(user){
+            @if(userObservable$ | async;){
               <li class="nav-item"><a class="nav-link" routerLink="artists">Artists</a></li>
               <li class="nav-item"><a class="nav-link" routerLink="tickets">Tickets</a></li>
             }
-            @if(user && user.role == userRole.Admin){
-              <li class="nav-item"><a class="nav-link" routerLink="admin">Admin page</a></li>
+            @if(userObservable$ | async; as userObservable){
+              @if(userObservable.role == userRole.Admin){
+                <li class="nav-item"><a class="nav-link" routerLink="admin">Admin page</a></li>
+              }
             }
           </ul>
   
           <div class="dropdown text-end">
-            @if(user){
+            @if(userObservable$ | async; as userObservable){
               <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle" style="cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{user.profileImgUrl}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="{{userObservable.profileImgUrl}}" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" routerLink="users/{{user._id}}">Profile</a></li>
+                <li><a class="dropdown-item" routerLink="users/{{userObservable._id}}">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Sign out</a></li>
               </ul>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUserIdentity, UserRole } from '@avans-nx-workshop/shared/api';
 import { AuthService } from 'libs/frontend/features/src/lib/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
     selector: 'avans-nx-workshop-header',
@@ -9,18 +9,15 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy{
-    constructor(private authservice: AuthService){}
 
-    user?: IUserIdentity;
+    userObservable$!: Observable<IUserIdentity | undefined>;
     subs?: Subscription;
     userRole = UserRole;
 
+    constructor(private authService: AuthService){}
+
     ngOnInit(): void {
-        this.subs = this.authservice.currentUser$.subscribe((currentUser?:IUserIdentity) => {
-            if(currentUser){
-                this.user = currentUser;
-            }
-        });
+        this.userObservable$ = this.authService.currentUser$;
     }
 
     ngOnDestroy(): void {
@@ -29,8 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
         }
     }
 
-    logout(): void {
-        this.authservice.logout();
-        this.user = undefined;
+    public logout(): void {
+        this.authService.logout();
     }
 }
