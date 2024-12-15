@@ -3,13 +3,14 @@ import { map, Observable, tap, of, catchError, Subscription } from 'rxjs';
 import { ApiResponse, ICreateTicket, ICreateUser, INeo4jUser, ITicket, IUpdateUser, IUser, IUserInfo, UserGender, UserRole } from '@avans-nx-workshop/shared/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@avans-nx-workshop/shared/util-env';
+import { AlertService } from '@avans-nx-workshop/shared/alert';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService implements OnDestroy{
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private alertService: AlertService) {
     console.log('Service constructor aangeroepen');
   }
 
@@ -42,13 +43,18 @@ export class UserService implements OnDestroy{
         );
   }
 
-  createUser(user: IUserInfo): Observable<IUserInfo>{
+  createUser(user: IUserInfo): Observable<IUserInfo | undefined>{
     console.log('createUser aangeroepen');
 
     return this.http
       .post<ApiResponse<any>>(environment.dataApiUrl + '/user', user)
         .pipe(
-          map((response) => response.results)
+          tap(console.log),
+          map((response) => (response.results)),
+          catchError((error: any) => {
+            this.alertService.error(error.error.message);
+            return of(undefined);
+          })
         );
   }
 
@@ -62,14 +68,18 @@ export class UserService implements OnDestroy{
       );
   }
 
-  updateUser(user: IUpdateUser): Observable<IUserInfo> {
+  updateUser(user: IUpdateUser): Observable<IUserInfo | undefined> {
     console.log('updateUser aangeroepen');
 
     return this.http
       .put<ApiResponse<any>>(environment.dataApiUrl + '/user/' + user._id, user)
         .pipe(
           tap(console.log),
-          map((response) => response.results)
+          map((response) => (response.results)),
+          catchError((error: any) => {
+            this.alertService.error(error.error.message);
+            return of(undefined);
+          })
         );
   }
 

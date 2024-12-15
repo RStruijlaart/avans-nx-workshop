@@ -11,7 +11,7 @@ import {
 import { UserService } from './user.service';
 import { IUserInfo, IUser, ITicket } from '@avans-nx-workshop/shared/api';
 import { CreateTicketDto, CreateUserDto, UpdateUserDto } from '@avans-nx-workshop/backend/dto';
-import { UserExistGuard } from './user-exists.guard';
+import { UserExistGuard, UserExistUpdateGuard } from './user-exists.guard';
 
 @Controller('user')
 export class UserController {
@@ -41,6 +41,7 @@ export class UserController {
     }
 
     @Put(':id')
+    @UseGuards(UserExistUpdateGuard)
     update(
         @Param('id') id: string,
         @Body() user: UpdateUserDto

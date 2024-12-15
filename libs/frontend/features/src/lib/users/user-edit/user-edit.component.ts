@@ -32,7 +32,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
         this.sub = this.route.paramMap
             .pipe(
-                tap(console.log),
                 switchMap((params: ParamMap) => {
                     if(!params.get('id')) {
                         return of({
@@ -64,31 +63,36 @@ export class UserEditComponent implements OnInit, OnDestroy {
         console.log('onSubmit', user)
         if (this.userId) {
             user._id = this.userId;
-            this.sub?.add(this.userService.updateUser(user).subscribe(() => {
-                console.log('update');
+            this.sub?.add(this.userService.updateUser(user).subscribe((updatedUser?: IUserInfo) => {
 
-                this.sub!.add(this.authService.currentUser$.subscribe((currentUser?: IUserIdentity) => {
-                    let updatedUser: IUserIdentity = {
-                        _id: user._id,
-                        name: user.name,
-                        emailAddress: user.emailAddress,
-                        profileImgUrl: user.profileImgUrl,
-                        role: user.role,
-                        token: currentUser!.token
-                    }
+                if(updatedUser){
+                    console.log('update');
 
-                    this.authService.saveUserToLocalStorage(updatedUser)
-                    this.router.navigate(['../../' + this.userId], { relativeTo: this.route });
-                }))
+                    this.sub!.add(this.authService.currentUser$.subscribe((currentUser?: IUserIdentity) => {
+                        let updatedUser: IUserIdentity = {
+                            _id: user._id,
+                            name: user.name,
+                            emailAddress: user.emailAddress,
+                            profileImgUrl: user.profileImgUrl,
+                            role: user.role,
+                            token: currentUser!.token
+                        }
+    
+                        this.authService.saveUserToLocalStorage(updatedUser)
+                        this.router.navigate(['../../' + this.userId], { relativeTo: this.route });
+                    }))
+                }
             }));
             
         } else {
-            this.sub?.add(this.userService.createUser(user).subscribe((newUser: IUserInfo) => {
-                const neo4jUser: INeo4jUser = {_id: newUser._id} 
+            this.sub?.add(this.userService.createUser(user).subscribe((newUser?: IUserInfo) => {
+                if(newUser){
+                    const neo4jUser: INeo4jUser = {_id: newUser._id} 
 
-                this.sub!.add(this.userService.createNeo4jUser(neo4jUser).subscribe(() => {
-                    this.router.navigate(['..'], { relativeTo: this.route });
-                }))
+                    this.sub!.add(this.userService.createNeo4jUser(neo4jUser).subscribe(() => {
+                        this.router.navigate(['..'], { relativeTo: this.route });
+                    }))
+                }
             }));
             
         };
