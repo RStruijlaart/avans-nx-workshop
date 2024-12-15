@@ -71,6 +71,10 @@ export class AuthService implements OnDestroy{
           return user;
         }),
         catchError((error: any) => {
+          if(error.name == "HttpErrorResponse"){
+            this.alertService.error("Can't connect to the server!");
+            return of(undefined);
+          }
           console.log('error:', error);
           this.alertService.error(error);
           return of(undefined);
@@ -93,6 +97,10 @@ export class AuthService implements OnDestroy{
           return user.results;
         }),
         catchError((error: any) => {
+          if(error.name == "HttpErrorResponse"){
+            this.alertService.error("Can't connect to the server!");
+            return of(undefined);
+          }
           console.log('error:', error);
           console.log('error.message:', error.message);
           console.log('error.error.message:', error.error.message);

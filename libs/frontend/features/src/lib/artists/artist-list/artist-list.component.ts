@@ -15,7 +15,7 @@ export class ArtistListComponent implements OnInit, OnDestroy{
     constructor(private artistService: ArtistService, private authService: AuthService){};
     
     subs: Subscription = new Subscription();
-    artists!: IArtist[];
+    artists?: IArtist[];
     recommendedArtists?: IArtist[];
 
     ngOnInit(): void {

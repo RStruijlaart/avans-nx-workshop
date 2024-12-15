@@ -1,45 +1,49 @@
 <div class="container">
-    
-    @if(recommendedArtists && recommendedArtists.length > 0){
-        <h1 class="text-center my-3">Recommended Artists</h1>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-            @for (artist of recommendedArtists; track artist._id) {
-                <div class="col">
-                    <div class="card recommended-card">
-                        <div class="artist-img-container">
-                            <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{artist.name}}</h5>
-                            <p class="card-text">{{artist.genre}}</p>
-                            <a routerLink="{{artist._id}}" class="btn btn-outline-success btn-sm">Discover</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    }
-    
-    @if(artists && artists.length == 0){
-        <h1 class="text-center my-3">No Artists yet!</h1>
-    }@else{
-        <h1 class="text-center my-3">Meet the Artists</h1>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            @for (artist of artists; track artist._id) {
-                <div class="col">
-                    <div class="card">
-                        <div class="artist-img-container">
-                            <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{artist.name}}</h5>
-                            <p class="card-text">{{artist.genre}}</p>
-                            <a routerLink="{{artist._id}}" class="btn btn-outline-primary btn-sm">View Artist</a>
+    @if(artists){
+        @if(recommendedArtists && recommendedArtists.length > 0){
+            <h1 class="text-center my-3">Recommended Artists</h1>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+                @for (artist of recommendedArtists; track artist._id) {
+                    <div class="col">
+                        <div class="card recommended-card">
+                            <div class="artist-img-container">
+                                <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{artist.name}}</h5>
+                                <p class="card-text">{{artist.genre}}</p>
+                                <a routerLink="{{artist._id}}" class="btn btn-outline-success btn-sm">Discover</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
+        
+        @if(artists && artists.length == 0){
+            <h1 class="text-center my-3">No Artists yet!</h1>
+        }@else{
+            <h1 class="text-center my-3">Meet the Artists</h1>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @for (artist of artists; track artist._id) {
+                    <div class="col">
+                        <div class="card">
+                            <div class="artist-img-container">
+                                <img src="{{artist.photoURL}}" alt="{{artist.name}}" class="artist-img">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{artist.name}}</h5>
+                                <p class="card-text">{{artist.genre}}</p>
+                                <a routerLink="{{artist._id}}" class="btn btn-outline-primary btn-sm">View Artist</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }@else {
+        <h1 class="text-center my-3">Loading data...</h1>
     }
+    
 
 </div>
