@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { IUserRegistration, IUserIdentity } from '@avans-nx-workshop/shared/api';
 import { Router } from '@angular/router';
@@ -11,24 +11,27 @@ import { UserService } from '../users/user.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy{
   public currentUser$ = new BehaviorSubject<IUserIdentity | undefined>(undefined);
   private readonly CURRENT_USER = 'currentuser';
   private readonly headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });
 
+  subs: Subscription = new Subscription;
+  
   constructor(
     private alertService: AlertService,
     private http: HttpClient,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {
     // Check of we al een ingelogde user hebben
     // Zo ja, check dan op de backend of het token nog valid is.
     // Het token kan namelijk verlopen zijn. Indien verlopen
     // retourneren we meteen een nieuw token.
-    this.getUserFromLocalStorage()
+    this.subs.add(
+      this.getUserFromLocalStorage()
       .pipe(
         // switchMap is overbodig als we validateToken() niet gebruiken...
         switchMap((user: IUserIdentity) => {
@@ -43,7 +46,8 @@ export class AuthService {
           }
         })
       )
-      .subscribe(() => console.log('Startup auth done'));
+      .subscribe(() => console.log('Startup auth done'))
+    );
   }
 
   login(email: string, password: string): Observable<IUserIdentity | undefined> {
@@ -157,5 +161,9 @@ export class AuthService {
     return this.currentUser$.pipe(
       map((user: IUserIdentity | undefined) => (user ? user._id === itemUserId : false))
     );
+  }
+
+  ngOnDestroy(): void {
+      this.subs.unsubscribe()
   }
 }

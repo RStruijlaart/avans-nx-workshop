@@ -33,9 +33,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subs) {
-      this.subs.unsubscribe();
-    }
+    this.subs.unsubscribe();
   }
 
   onSubmit(): void {
@@ -45,15 +43,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
         emailAddress: String(this.registerForm.value.email),
         password: String(this.registerForm.value.password)
       }
-      this.authService.register(userValues).subscribe((user) => {
-        if (user) {
-          console.log('user = ', user);
-          const neo4jUser: INeo4jArtist = {_id: user._id}
-          this.subs.add(this.userService.createNeo4jUser(neo4jUser).subscribe(() => {
-            this.router.navigate(['/login']);
-          }))
-        }
-      });
+
+      this.subs.add(
+        this.authService.register(userValues).subscribe((user) => {
+          if (user) {
+            console.log('user = ', user);
+            const neo4jUser: INeo4jArtist = {_id: user._id}
+            this.subs.add(this.userService.createNeo4jUser(neo4jUser).subscribe(() => {
+              this.router.navigate(['/login']);
+            }))
+          }
+        })
+      );
+      
     } else {
       console.error('registerForm invalid');
     }

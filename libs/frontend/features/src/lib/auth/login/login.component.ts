@@ -13,7 +13,7 @@ import { delay } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
-  subs?: Subscription;
+  subs: Subscription = new Subscription();
   submitted = false;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -30,20 +30,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       ]),
     });
 
-    this.subs = this.authService
+    this.subs.add(this.authService
       .getUserFromLocalStorage()
       .subscribe((user: IUserIdentity) => {
         if (user) {
           console.log('User already logged in > to dashboard');
           this.router.navigate(['/']);
         }
-      });
+      })
+    )
   }
 
   ngOnDestroy(): void {
-    if (this.subs) {
-      this.subs.unsubscribe();
-    }
+    this.subs.unsubscribe();
   }
 
   onSubmit(): void {
@@ -51,6 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.submitted = true;
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
+      this.subs.add(
       this.authService
         .login(email, password)
         // .pipe(delay(1000))
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate(['/']);
           }
           this.submitted = false;
-        });
+        }));
     } else {
       this.submitted = false;
       console.error('loginForm invalid');
